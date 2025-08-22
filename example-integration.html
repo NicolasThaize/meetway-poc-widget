@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemple d'intégration - MeetWay Widget Événement Agnostique</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        
+        .page-header {
+            background: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        .event-details {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .widget-sidebar {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+        
+        .event-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .event-description {
+            line-height: 1.6;
+            color: #666;
+        }
+        
+        .ticket-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .ticket-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #28a745;
+        }
+        
+        .integration-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .code-example {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 12px;
+            overflow-x: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1>🎵 Festival de Musique 2024</h1>
+        <p>Une soirée exceptionnelle avec les meilleurs artistes</p>
+    </div>
+    
+    <div class="content">
+        <!-- Détails de l'événement -->
+        <div class="event-details">
+            <div class="event-image">
+                🎤 Festival de Musique
+            </div>
+            
+            <h2>À propos de l'événement</h2>
+            <p class="event-description">
+                Rejoignez-nous pour une soirée inoubliable au Festival de Musique 2024 ! 
+                Une programmation exceptionnelle avec des artistes internationaux, 
+                des performances uniques et une ambiance festive garantie.
+            </p>
+            
+            <div class="ticket-info">
+                <h3>Informations billetterie</h3>
+                <p><strong>Date :</strong> <span class="event-date">Samedi 15 juin 2024 à 19h00</span></p>
+                <p><strong>Lieu :</strong> <span class="event-location">Parc des Expositions - Hall A</span></p>
+                <p><strong>Capacité :</strong> 5000 places</p>
+                <p class="ticket-price">Prix : <span class="event-price">75€</span></p>
+            </div>
+            
+            <h3>Programme de la soirée</h3>
+            <ul>
+                <li>19h00 - Ouverture des portes</li>
+                <li>20h00 - Premier artiste</li>
+                <li>21h30 - Artiste principal</li>
+                <li>23h00 - DJ set</li>
+                <li>01h00 - Fin de soirée</li>
+            </ul>
+            
+            <h3>Services disponibles</h3>
+            <ul>
+                <li>Restauration sur place</li>
+                <li>Bar avec boissons variées</li>
+                <li>Parking gratuit</li>
+                <li>Accès handicapé</li>
+            </ul>
+            
+            <div class="integration-info">
+                <strong>💡 Intégration automatique :</strong> Le widget MeetWay détecte automatiquement 
+                les informations de cette page (nom, date, lieu, prix) et les utilise pour l'appel API 
+                de covoiturage. Aucune configuration manuelle n'est nécessaire !
+            </div>
+            
+            <div class="integration-info">
+                <strong>🎯 Fourniture manuelle :</strong> Vous pouvez aussi fournir directement les données d'événement :
+                <div class="code-example">
+// Exemple de fourniture manuelle des données
+MeetWayWidget.init({
+    containerId: 'meetway-widget-container',
+    eventData: {
+        name: 'Festival de Musique 2024',
+        date: '2024-06-15T19:00:00',
+        location: 'Parc des Expositions - Hall A',
+        price: '75€',
+        id: 'FEST-2024-001'
+    },
+    onCarpoolInterest: function(isInterested, eventInfo) {
+        // Votre logique API ici
+    }
+});
+                </div>
+            </div>
+        </div>
+        
+        <!-- Widget MeetWay -->
+        <div class="widget-sidebar">
+            <h3>🚗 Covoiturage MeetWay</h3>
+            <p>Partagez votre trajet et économisez sur vos déplacements !</p>
+            
+            <!-- Conteneur du widget -->
+            <div id="meetway-widget-container"></div>
+            
+            <div class="integration-info">
+                <strong>🔍 Détection automatique :</strong>
+                <ul style="margin: 10px 0; padding-left: 20px; font-size: 12px;">
+                    <li>Nom : Festival de Musique 2024</li>
+                    <li>Date : Samedi 15 juin 2024 à 19h00</li>
+                    <li>Lieu : Parc des Expositions - Hall A</li>
+                    <li>Prix : 75€</li>
+                </ul>
+            </div>
+            
+            <div class="integration-info">
+                <strong>⚙️ Configuration des sélecteurs :</strong>
+                <div class="code-example">
+// Ajouter des sélecteurs personnalisés
+addEventSelector('name', '.my-event-title');
+addEventSelector('date', '.my-event-date');
+addEventSelector('location', '.my-venue');
+addEventSelector('price', '.my-price');
+addEventSelector('id', '.my-event-id');
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Intégration du widget JavaScript -->
+    <script src="config.js"></script>
+    <script src="widget.js"></script>
+    <script>
+        // Exemple 1: Intégration avec détection automatique
+        MeetWayWidget.init({
+            containerId: 'meetway-widget-container',
+            widgetTitle: 'MeetWay',
+            carpoolValue: 'Partagez votre trajet et économisez sur vos déplacements !',
+            onCarpoolInterest: function(isInterested, eventInfo) {
+                console.log('🚗 Intérêt covoiturage:', isInterested);
+                console.log('📋 Informations d\'événement détectées:', eventInfo);
+                
+                // Exemple d'appel API réel
+                if (isInterested) {
+                    console.log('📡 Envoi de l\'intérêt de covoiturage à l\'API...');
+                    
+                    // Exemple avec fetch (décommentez pour tester)
+                    /*
+                    fetch('/api/carpool-interest', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            eventInfo: eventInfo,
+                            interested: true,
+                            timestamp: new Date().toISOString(),
+                            userAgent: navigator.userAgent,
+                            pageUrl: window.location.href
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('✅ Intérêt enregistré:', data);
+                        alert('Votre intérêt pour le covoiturage a été enregistré !');
+                    })
+                    .catch(error => {
+                        console.error('❌ Erreur:', error);
+                        alert('Erreur lors de l\'enregistrement. Veuillez réessayer.');
+                    });
+                    */
+                }
+            }
+        });
+        
+        // Exemple 2: Ajout de sélecteurs personnalisés
+        // addEventSelector('name', '.festival-title');
+        // addEventSelector('date', '.festival-date');
+        // addEventSelector('location', '.festival-venue');
+        
+        // Exemple 3: Fourniture manuelle des données (décommentez pour tester)
+        /*
+        MeetWayWidget.init({
+            containerId: 'meetway-widget-container',
+            eventData: {
+                name: 'Festival de Musique 2024 (Données manuelles)',
+                date: '2024-06-15T19:00:00',
+                location: 'Parc des Expositions - Hall A',
+                price: '75€',
+                id: 'FEST-2024-001-MANUAL'
+            },
+            onCarpoolInterest: function(isInterested, eventInfo) {
+                console.log('🚗 Intérêt covoiturage (manuel):', isInterested);
+                console.log('📋 Informations d\'événement (manuel):', eventInfo);
+            }
+        });
+        */
+        
+        // Affichage des informations détectées dans la console
+        setTimeout(() => {
+            const eventInfo = MeetWayWidget.getDetectedEventInfo();
+            console.log('🔍 Informations d\'événement détectées automatiquement:', eventInfo);
+        }, 100);
+    </script>
+</body>
+</html>

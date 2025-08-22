@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test MeetWay Widget - Événement Agnostique</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .test-title {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        .test-button:hover {
+            background: #0056b3;
+        }
+        
+        .test-button.success {
+            background: #28a745;
+        }
+        
+        .test-button.danger {
+            background: #dc3545;
+        }
+        
+        .log-output {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .widget-test-area {
+            border: 2px dashed #007bff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .event-simulation {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #28a745;
+        }
+        
+        .event-simulation h4 {
+            margin-top: 0;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Test MeetWay Widget - Événement Agnostique</h1>
+        
+        <!-- Test 1: Initialisation du widget -->
+        <div class="test-section">
+            <h2 class="test-title">Test 1: Initialisation du widget</h2>
+            <p>Test de l'initialisation du widget avec détection automatique des informations d'événement.</p>
+            
+            <div class="event-simulation">
+                <h4>📋 Informations d'événement simulées sur cette page :</h4>
+                <p><strong>Nom :</strong> <span class="event-title">Test Event 2024</span></p>
+                <p><strong>Date :</strong> <span class="event-date">15 janvier 2024 à 20h00</span></p>
+                <p><strong>Lieu :</strong> <span class="event-location">Salle de Test, Paris</span></p>
+                <p><strong>Prix :</strong> <span class="event-price">25€</span></p>
+            </div>
+            
+            <div class="widget-test-area">
+                <div id="widget-test-1"></div>
+            </div>
+            
+            <button class="test-button" onclick="testWidgetInit()">Initialiser le widget</button>
+            <button class="test-button danger" onclick="clearWidget('widget-test-1')">Effacer</button>
+        </div>
+        
+        <!-- Test 2: Détection automatique -->
+        <div class="test-section">
+            <h2 class="test-title">Test 2: Détection automatique</h2>
+            <p>Test de la détection automatique des informations d'événement sur la page.</p>
+            
+            <div class="widget-test-area">
+                <div id="widget-test-2"></div>
+            </div>
+            
+            <button class="test-button" onclick="testAutoDetection()">Tester détection automatique</button>
+            <button class="test-button success" onclick="showDetectedInfo()">Afficher infos détectées</button>
+            <button class="test-button danger" onclick="clearWidget('widget-test-2')">Effacer</button>
+        </div>
+        
+        <!-- Test 3: Fonctionnalité covoiturage -->
+        <div class="test-section">
+            <h2 class="test-title">Test 3: Fonctionnalité covoiturage</h2>
+            <p>Test de la checkbox de covoiturage avec informations d'événement détectées.</p>
+            
+            <div class="widget-test-area">
+                <div id="widget-test-3"></div>
+            </div>
+            
+            <button class="test-button" onclick="testCarpoolFunction()">Tester covoiturage</button>
+            <button class="test-button danger" onclick="clearWidget('widget-test-3')">Effacer</button>
+        </div>
+        
+        <!-- Logs -->
+        <div class="test-section">
+            <h2 class="test-title">Logs de test</h2>
+            <button class="test-button" onclick="clearLogs()">Effacer les logs</button>
+            <div id="log-output" class="log-output"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="widget.js"></script>
+    <script>
+        // Variables globales pour les tests
+        let testWidget2 = null;
+        let testWidget3 = null;
+        
+        // Fonction pour logger les messages
+        function log(message) {
+            const logOutput = document.getElementById('log-output');
+            const timestamp = new Date().toLocaleTimeString();
+            logOutput.innerHTML += `[${timestamp}] ${message}\n`;
+            logOutput.scrollTop = logOutput.scrollHeight;
+            console.log(message);
+        }
+        
+        // Fonction pour effacer un widget
+        function clearWidget(containerId) {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.innerHTML = '';
+                log(`Widget ${containerId} effacé`);
+            }
+        }
+        
+        // Fonction pour effacer les logs
+        function clearLogs() {
+            document.getElementById('log-output').innerHTML = '';
+        }
+        
+        // Test 1: Initialisation du widget
+        function testWidgetInit() {
+            log('🧪 Test 1: Initialisation du widget...');
+            
+            try {
+                MeetWayWidget.init({
+                    containerId: 'widget-test-1',
+                    widgetTitle: 'MeetWay',
+                    carpoolValue: 'Partagez votre trajet et économisez !',
+                    onCarpoolInterest: function(isInterested, eventInfo) {
+                        log(`🚗 Intérêt covoiturage: ${isInterested}`);
+                        log(`📋 Infos événement: ${JSON.stringify(eventInfo)}`);
+                    }
+                });
+                
+                log('✅ Widget initialisé avec succès');
+            } catch (error) {
+                log(`❌ Erreur lors de l'initialisation: ${error.message}`);
+            }
+        }
+        
+        // Test 2: Détection automatique
+        function testAutoDetection() {
+            log('🧪 Test 2: Test de détection automatique...');
+            
+            try {
+                MeetWayWidget.init({
+                    containerId: 'widget-test-2',
+                    widgetTitle: 'MeetWay',
+                    carpoolValue: 'Détection automatique en cours...',
+                    onCarpoolInterest: function(isInterested, eventInfo) {
+                        log(`🚗 Callback avec infos détectées: ${isInterested}`);
+                        log(`📋 Nom: ${eventInfo.name || 'Non détecté'}`);
+                        log(`📅 Date: ${eventInfo.date || 'Non détecté'}`);
+                        log(`📍 Lieu: ${eventInfo.location || 'Non détecté'}`);
+                        log(`💰 Prix: ${eventInfo.price || 'Non détecté'}`);
+                        log(`🌐 URL: ${eventInfo.url}`);
+                        log(`📄 Titre page: ${eventInfo.pageTitle}`);
+                    }
+                });
+                
+                log('✅ Widget avec détection automatique initialisé');
+            } catch (error) {
+                log(`❌ Erreur: ${error.message}`);
+            }
+        }
+        
+        function showDetectedInfo() {
+            log('🔍 Affichage des informations détectées...');
+            
+            try {
+                const eventInfo = MeetWayWidget.getDetectedEventInfo();
+                log(`📋 Nom détecté: ${eventInfo.name || 'Non détecté'}`);
+                log(`📅 Date détectée: ${eventInfo.date || 'Non détecté'}`);
+                log(`📍 Lieu détecté: ${eventInfo.location || 'Non détecté'}`);
+                log(`💰 Prix détecté: ${eventInfo.price || 'Non détecté'}`);
+                log(`🌐 URL: ${eventInfo.url}`);
+                log(`📄 Titre page: ${eventInfo.pageTitle}`);
+            } catch (error) {
+                log(`❌ Erreur lors de la récupération: ${error.message}`);
+            }
+        }
+        
+        // Test 3: Fonctionnalité covoiturage
+        function testCarpoolFunction() {
+            log('🧪 Test 3: Test de la fonctionnalité covoiturage...');
+            
+            try {
+                MeetWayWidget.init({
+                    containerId: 'widget-test-3',
+                    widgetTitle: 'MeetWay',
+                    carpoolValue: 'Testez la checkbox de covoiturage !',
+                    onCarpoolInterest: function(isInterested, eventInfo) {
+                        log(`🚗 Callback covoiturage appelé: ${isInterested}`);
+                        log(`📋 Événement: ${eventInfo.name || 'Non détecté'}`);
+                        
+                        // Simulation d'un appel API
+                        setTimeout(() => {
+                            if (isInterested) {
+                                log('📡 Appel API simulé - Intérêt enregistré');
+                                log(`📊 Données envoyées: ${JSON.stringify(eventInfo)}`);
+                            } else {
+                                log('📡 Appel API simulé - Intérêt retiré');
+                            }
+                        }, 1000);
+                    }
+                });
+                
+                log('✅ Widget covoiturage initialisé - Testez la checkbox !');
+            } catch (error) {
+                log(`❌ Erreur: ${error.message}`);
+            }
+        }
+        
+        // Tests automatiques au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            log('🚀 Page de test chargée');
+            log('📋 Tests disponibles:');
+            log('  1. Initialisation du widget');
+            log('  2. Détection automatique des informations');
+            log('  3. Fonctionnalité covoiturage');
+            log('💡 Cliquez sur les boutons pour lancer les tests');
+            log('🔍 Le widget détecte automatiquement les informations d\'événement sur cette page');
+        });
+    </script>
+</body>
+</html>

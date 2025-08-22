@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeetWay Widget - PoC Covoiturage Événement Agnostique</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .event-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .widget-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #555;
+            margin-bottom: 20px;
+        }
+        
+        .demo-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .event-details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .event-details h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        .event-details p {
+            margin: 8px 0;
+            color: #666;
+        }
+        
+        .detection-info {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .detection-info h4 {
+            margin-top: 0;
+            color: #856404;
+        }
+        
+        .detection-info ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .detection-info li {
+            margin: 5px 0;
+            color: #856404;
+        }
+        
+        .manual-data-section {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #28a745;
+        }
+        
+        .manual-data-section h4 {
+            margin-top: 0;
+            color: #155724;
+        }
+        
+        .config-section {
+            background: #f8d7da;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .config-section h4 {
+            margin-top: 0;
+            color: #721c24;
+        }
+        
+        .user-info-section {
+            background: #e2e3e5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #6c757d;
+        }
+        
+        .user-info-section h4 {
+            margin-top: 0;
+            color: #495057;
+        }
+        
+        .hierarchy-section {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #0066cc;
+        }
+        
+        .hierarchy-section h4 {
+            margin-top: 0;
+            color: #004085;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .demo-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .demo-button:hover {
+            background: #0056b3;
+        }
+        
+        .demo-button.success {
+            background: #28a745;
+        }
+        
+        .demo-button.warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        
+        .demo-button.info {
+            background: #17a2b8;
+        }
+        
+        .demo-button.secondary {
+            background: #6c757d;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>MeetWay Widget - Proof of Concept</h1>
+    <h2 style="text-align: center; color: #666; margin-bottom: 30px;">Widget de Covoiturage Événement Agnostique</h2>
+    
+    <div class="container">
+        <!-- Section Événement simulé -->
+        <div class="event-section">
+            <h2>🎫 Page de Billetterie Simulée</h2>
+            <div class="demo-info">
+                <strong>💡 Simulation :</strong> Cette section simule une page de billetterie 
+                avec des informations d'événement et utilisateur. Le widget détecte automatiquement ces informations.
+            </div>
+            
+            <!-- Informations d'événement qui seront détectées automatiquement -->
+            <div class="event-details">
+                <h3 data-event-id="EVT-2024-001">Concert de Rock 2024</h3>
+                <p><strong>Date :</strong> <span class="event-date" data-event-date="2024-06-15">Samedi 15 juin 2024 à 20h00</span></p>
+                <p><strong>Lieu :</strong> <span class="event-location" data-venue="Stade de France">Stade de France, Saint-Denis</span></p>
+                <p><strong>Prix :</strong> <span class="event-price" data-ticket-price="50-120">50€ - 120€</span></p>
+                <p><strong>Artistes :</strong> The Rock Band, Electric Guitars</p>
+                <p><strong>Capacité :</strong> 80 000 places</p>
+            </div>
+            
+            <!-- Informations utilisateur simulées dans le DOM -->
+            <div class="user-info-section">
+                <h4>👤 Informations utilisateur simulées dans le DOM</h4>
+                <p><strong>ID :</strong> <span data-user-id="USER-12345">USER-12345</span></p>
+                <p><strong>Email :</strong> <span data-user-email="john.doe@example.com">john.doe@example.com</span></p>
+                <p><strong>Nom :</strong> <span data-user-name="John Doe">John Doe</span></p>
+                <p><strong>Téléphone :</strong> <span data-user-phone="+33123456789">+33 1 23 45 67 89</span></p>
+            </div>
+            
+            <div class="hierarchy-section">
+                <h4>🔄 Hiérarchie de récupération des données</h4>
+                <p><strong>Pour les événements ET utilisateurs :</strong></p>
+                <ol>
+                    <li><strong>Données manuelles</strong> (priorité maximale)</li>
+                    <li><strong>localStorage</strong> (expiration : 1 jour pour événements, 7 jours pour utilisateurs)</li>
+                    <li><strong>Cookies</strong> (préfixe meetway_event_ et meetway_)</li>
+                    <li><strong>Sélecteurs DOM</strong> (détection automatique)</li>
+                    <li><strong>Fallback</strong> (données minimales)</li>
+                </ol>
+            </div>
+            
+            <div class="detection-info">
+                <h4>🔍 Détection automatique</h4>
+                <p>Le widget détecte automatiquement les informations suivantes :</p>
+                <ul>
+                    <li><strong>Nom de l'événement :</strong> Depuis les balises h1, h2, h3</li>
+                    <li><strong>Date :</strong> Depuis les classes .event-date, .date, [datetime]</li>
+                    <li><strong>Lieu :</strong> Depuis les classes .event-location, .location</li>
+                    <li><strong>Prix :</strong> Depuis les classes .event-price, .price</li>
+                    <li><strong>ID :</strong> Depuis [data-event-id], .event-id</li>
+                    <li><strong>URL de la page :</strong> window.location.href</li>
+                    <li><strong>Titre de la page :</strong> document.title</li>
+                </ul>
+            </div>
+            
+            <div class="manual-data-section">
+                <h4>🎯 Fourniture manuelle des données</h4>
+                <p>La billetterie peut fournir directement les données d'événement et utilisateur via JavaScript :</p>
+                <div class="button-group">
+                    <button class="demo-button success" onclick="setManualEventData()">Fournir données événement</button>
+                    <button class="demo-button info" onclick="setManualUserData()">Fournir données utilisateur</button>
+                    <button class="demo-button warning" onclick="updateEventData()">Mettre à jour événement</button>
+                    <button class="demo-button" onclick="resetToAutoDetection()">Retour détection auto</button>
+                </div>
+            </div>
+            
+            <div class="config-section">
+                <h4>⚙️ Configuration et tests</h4>
+                <p>Ajoutez des sélecteurs personnalisés et testez les différentes sources :</p>
+                <div class="button-group">
+                    <button class="demo-button" onclick="addCustomSelectors()">Ajouter sélecteurs perso</button>
+                    <button class="demo-button" onclick="showCurrentSelectors()">Voir sélecteurs actuels</button>
+                    <button class="demo-button" onclick="testUserInfoRetrieval()">Tester récupération utilisateur</button>
+                    <button class="demo-button secondary" onclick="testEventInfoRetrieval()">Tester récupération événement</button>
+                    <button class="demo-button secondary" onclick="testLocalStorage()">Tester localStorage</button>
+                    <button class="demo-button secondary" onclick="testCookies()">Tester cookies</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section Widget -->
+        <div class="widget-section">
+            <h2>🚗 Widget MeetWay</h2>
+            <div class="demo-info">
+                <strong>🎯 Widget simplifié :</strong> Le widget affiche seulement "MeetWay", 
+                la proposition de valeur du covoiturage et la checkbox d'intérêt.
+            </div>
+            
+            <!-- Conteneur du widget -->
+            <div id="meetway-widget-container"></div>
+            
+            <div class="demo-info">
+                <strong>📊 Informations d'événement détectées :</strong> 
+                <div id="detected-info" style="margin-top: 10px; font-family: monospace; font-size: 12px; background: #f8f9fa; padding: 10px; border-radius: 4px;"></div>
+            </div>
+            
+            <div class="demo-info">
+                <strong>👤 Informations utilisateur :</strong> 
+                <div id="user-info" style="margin-top: 10px; font-family: monospace; font-size: 12px; background: #f8f9fa; padding: 10px; border-radius: 4px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Intégration du widget JavaScript -->
+    <script src="config.js"></script>
+    <script src="widget.js"></script>
+    <script>
+        // Variables globales pour la démonstration
+        let currentMode = 'auto'; // 'auto' ou 'manual'
+        
+        // Initialisation du widget événement agnostique
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Initialisation du widget avec détection automatique
+            await MeetWayWidget.init({
+                containerId: 'meetway-widget-container',
+                widgetTitle: 'MeetWay',
+                carpoolValue: 'Partagez votre trajet et économisez sur vos déplacements !',
+                onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
+                    console.log('🚗 Intérêt covoiturage:', isInterested);
+                    console.log('📋 Informations d\'événement:', eventInfo);
+                    console.log('👤 Informations utilisateur:', userInfo);
+                    
+                    // Affichage des informations détectées
+                    updateDetectedInfoDisplay(eventInfo);
+                    updateUserInfoDisplay(userInfo);
+                    
+                    // Ici, vous pouvez ajouter l'appel API pour enregistrer l'intérêt
+                    // Exemple: apiCall('/carpool-interest', { 
+                    //     interested: isInterested, 
+                    //     eventInfo: eventInfo,
+                    //     userInfo: userInfo
+                    // });
+                }
+            });
+            
+            // Affichage initial des informations détectées
+            setTimeout(() => {
+                const eventInfo = MeetWayWidget.getDetectedEventInfo();
+                const userInfo = MeetWayWidget.getUserInfo();
+                updateDetectedInfoDisplay(eventInfo);
+                updateUserInfoDisplay(userInfo);
+            }, 100);
+        });
+        
+        // Fonction pour afficher les informations détectées
+        function updateDetectedInfoDisplay(eventInfo) {
+            const detectedInfoDiv = document.getElementById('detected-info');
+            if (detectedInfoDiv) {
+                detectedInfoDiv.innerHTML = `
+                    <strong>Mode :</strong> ${currentMode}<br>
+                    <strong>Source :</strong> ${eventInfo.source || 'Non détecté'}<br>
+                    <strong>Nom :</strong> ${eventInfo.name || 'Non détecté'}<br>
+                    <strong>Date :</strong> ${eventInfo.date || 'Non détecté'}<br>
+                    <strong>Lieu :</strong> ${eventInfo.location || 'Non détecté'}<br>
+                    <strong>Prix :</strong> ${eventInfo.price || 'Non détecté'}<br>
+                    <strong>ID :</strong> ${eventInfo.id || 'Non détecté'}<br>
+                    <strong>URL :</strong> ${eventInfo.url}<br>
+                    <strong>Titre page :</strong> ${eventInfo.pageTitle}<br>
+                    <strong>Timestamp :</strong> ${eventInfo.timestamp || 'Non détecté'}
+                `;
+            }
+        }
+        
+        // Fonction pour afficher les informations utilisateur
+        function updateUserInfoDisplay(userInfo) {
+            const userInfoDiv = document.getElementById('user-info');
+            if (userInfoDiv) {
+                userInfoDiv.innerHTML = `
+                    <strong>Source :</strong> ${userInfo.source || 'Non détecté'}<br>
+                    <strong>ID :</strong> ${userInfo.id || 'Non détecté'}<br>
+                    <strong>Email :</strong> ${userInfo.email || 'Non détecté'}<br>
+                    <strong>Nom :</strong> ${userInfo.name || 'Non détecté'}<br>
+                    <strong>Téléphone :</strong> ${userInfo.phone || 'Non détecté'}<br>
+                    <strong>Timestamp :</strong> ${userInfo.timestamp || 'Non détecté'}
+                `;
+            }
+        }
+        
+        // Fonction pour fournir des données d'événement manuellement
+        function setManualEventData() {
+            const manualData = {
+                name: 'Concert de Rock 2024 (Données manuelles)',
+                date: '2024-06-15T20:00:00',
+                location: 'Stade de France, Saint-Denis',
+                price: '50€ - 120€',
+                id: 'EVT-2024-001-MANUAL',
+                url: window.location.href,
+                pageTitle: document.title
+            };
+            
+            // Réinitialiser le widget avec les données manuelles
+            MeetWayWidget.init({
+                containerId: 'meetway-widget-container',
+                widgetTitle: 'MeetWay',
+                carpoolValue: 'Partagez votre trajet et économisez sur vos déplacements !',
+                eventData: manualData,
+                onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
+                    console.log('🚗 Intérêt covoiturage (manuel):', isInterested);
+                    console.log('📋 Informations d\'événement (manuel):', eventInfo);
+                    console.log('👤 Informations utilisateur:', userInfo);
+                    updateDetectedInfoDisplay(eventInfo);
+                    updateUserInfoDisplay(userInfo);
+                }
+            });
+            
+            currentMode = 'manual';
+            console.log('✅ Données d\'événement fournies manuellement');
+        }
+        
+        // Fonction pour fournir des données utilisateur manuellement
+        function setManualUserData() {
+            const manualUserData = {
+                id: 'USER-MANUAL-001',
+                email: 'user.manual@example.com',
+                name: 'Utilisateur Manuel',
+                phone: '+33123456789'
+            };
+            
+            // Réinitialiser le widget avec les données utilisateur manuelles
+            MeetWayWidget.init({
+                containerId: 'meetway-widget-container',
+                widgetTitle: 'MeetWay',
+                carpoolValue: 'Partagez votre trajet et économisez sur vos déplacements !',
+                userData: manualUserData,
+                onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
+                    console.log('🚗 Intérêt covoiturage:', isInterested);
+                    console.log('📋 Informations d\'événement:', eventInfo);
+                    console.log('👤 Informations utilisateur (manuel):', userInfo);
+                    updateDetectedInfoDisplay(eventInfo);
+                    updateUserInfoDisplay(userInfo);
+                }
+            });
+            
+            currentMode = 'manual-user';
+            console.log('✅ Données utilisateur fournies manuellement');
+        }
+        
+        // Fonction pour mettre à jour les données
+        function updateEventData() {
+            const updatedData = {
+                name: 'Concert de Rock 2024 (Mis à jour)',
+                price: '45€ - 110€ (Prix réduit !)',
+                date: '2024-06-15T21:00:00'
+            };
+            
+            MeetWayWidget.updateEventData(updatedData);
+            currentMode = 'manual-updated';
+            
+            const eventInfo = MeetWayWidget.getDetectedEventInfo();
+            updateDetectedInfoDisplay(eventInfo);
+            
+            console.log('✅ Données d\'événement mises à jour');
+        }
+        
+        // Fonction pour revenir à la détection automatique
+        function resetToAutoDetection() {
+            MeetWayWidget.init({
+                containerId: 'meetway-widget-container',
+                widgetTitle: 'MeetWay',
+                carpoolValue: 'Partagez votre trajet et économisez sur vos déplacements !',
+                autoDetectEventInfo: true,
+                onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
+                    console.log('🚗 Intérêt covoiturage (auto):', isInterested);
+                    console.log('📋 Informations d\'événement (auto):', eventInfo);
+                    console.log('👤 Informations utilisateur (auto):', userInfo);
+                    updateDetectedInfoDisplay(eventInfo);
+                    updateUserInfoDisplay(userInfo);
+                }
+            });
+            
+            currentMode = 'auto';
+            
+            setTimeout(() => {
+                const eventInfo = MeetWayWidget.getDetectedEventInfo();
+                const userInfo = MeetWayWidget.getUserInfo();
+                updateDetectedInfoDisplay(eventInfo);
+                updateUserInfoDisplay(userInfo);
+            }, 100);
+            
+            console.log('✅ Retour à la détection automatique');
+        }
+        
+        // Fonction pour ajouter des sélecteurs personnalisés
+        function addCustomSelectors() {
+            // Ajouter des sélecteurs personnalisés
+            addEventSelector('name', '.my-custom-event-name');
+            addEventSelector('name', '[data-my-event-title]');
+            addEventSelector('date', '.my-custom-date');
+            addEventSelector('location', '.my-custom-venue');
+            addEventSelector('price', '.my-custom-price');
+            addEventSelector('id', '.my-custom-event-id');
+            
+            console.log('✅ Sélecteurs personnalisés ajoutés');
+            alert('Sélecteurs personnalisés ajoutés ! Vérifiez la console pour plus de détails.');
+        }
+        
+        // Fonction pour afficher les sélecteurs actuels
+        function showCurrentSelectors() {
+            const nameSelectors = getEventSelectors('name');
+            const dateSelectors = getEventSelectors('date');
+            const locationSelectors = getEventSelectors('location');
+            const priceSelectors = getEventSelectors('price');
+            const idSelectors = getEventSelectors('id');
+            
+            console.log('📋 Sélecteurs actuels :');
+            console.log('Nom:', nameSelectors);
+            console.log('Date:', dateSelectors);
+            console.log('Lieu:', locationSelectors);
+            console.log('Prix:', priceSelectors);
+            console.log('ID:', idSelectors);
+            
+            alert('Sélecteurs affichés dans la console !');
+        }
+        
+        // Fonction pour tester la récupération des informations utilisateur
+        function testUserInfoRetrieval() {
+            console.log('🧪 Test de récupération des informations utilisateur...');
+            
+            // Simuler des données dans localStorage
+            const testUserData = {
+                id: 'USER-TEST-001',
+                email: 'test.user@example.com',
+                name: 'Utilisateur Test',
+                phone: '+33987654321',
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('meetway_user_info', JSON.stringify(testUserData));
+            console.log('💾 Données utilisateur de test sauvegardées dans localStorage');
+            
+            // Réinitialiser le widget pour tester la récupération
+            MeetWayWidget.init({
+                containerId: 'meetway-widget-container',
+                widgetTitle: 'MeetWay',
+                carpoolValue: 'Test de récupération utilisateur...',
+                onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
+                    console.log('🚗 Test récupération utilisateur:', userInfo);
+                    updateUserInfoDisplay(userInfo);
+                }
+            });
+            
+            setTimeout(() => {
+                const userInfo = MeetWayWidget.getUserInfo();
+                updateUserInfoDisplay(userInfo);
+            }, 100);
+            
+            alert('Test de récupération utilisateur lancé ! Vérifiez la console et l\'affichage.');
+        }
+        
+        // Fonction pour tester la récupération des informations d'événement
+        function testEventInfoRetrieval() {
+            console.log('🧪 Test de récupération des informations d\'événement...');
+            
+            // Simuler des données dans localStorage
+            const testEventData = {
+                name: 'Événement Test localStorage',
+                date: '2024-12-25T19:00:00',
+                location: 'Salle de Test',
+                price: '25€',
+                id: 'EVT-TEST-001',
+                url: window.location.href,
+                pageTitle: document.title,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('meetway_event_info', JSON.stringify(testEventData));
+            console.log('💾 Données événement de test sauvegardées dans localStorage');
+            
+            // Réinitialiser le widget pour tester la récupération
+            MeetWayWidget.init({
+                containerId: 'meetway-widget-container',
+                widgetTitle: 'MeetWay',
+                carpoolValue: 'Test de récupération événement...',
+                onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
+                    console.log('🚗 Test récupération événement:', eventInfo);
+                    updateDetectedInfoDisplay(eventInfo);
+                }
+            });
+            
+            setTimeout(() => {
+                const eventInfo = MeetWayWidget.getDetectedEventInfo();
+                updateDetectedInfoDisplay(eventInfo);
+            }, 100);
+            
+            alert('Test de récupération événement lancé ! Vérifiez la console et l\'affichage.');
+        }
+        
+        // Fonction pour tester localStorage
+        function testLocalStorage() {
+            console.log('🧪 Test localStorage...');
+            
+            // Nettoyer localStorage
+            localStorage.removeItem('meetway_user_info');
+            localStorage.removeItem('meetway_event_info');
+            
+            // Ajouter des données de test
+            const testUserData = {
+                id: 'USER-LS-TEST',
+                email: 'ls.test@example.com',
+                name: 'Test localStorage',
+                phone: '+33111111111',
+                timestamp: new Date().toISOString()
+            };
+            
+            const testEventData = {
+                name: 'Événement localStorage',
+                date: '2024-01-01T20:00:00',
+                location: 'Test Venue',
+                price: '30€',
+                id: 'EVT-LS-TEST',
+                url: window.location.href,
+                pageTitle: document.title,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('meetway_user_info', JSON.stringify(testUserData));
+            localStorage.setItem('meetway_event_info', JSON.stringify(testEventData));
+            
+            console.log('💾 Données de test ajoutées dans localStorage');
+            
+            // Réinitialiser le widget
+            MeetWayWidget.init({
+                containerId: 'meetway-widget-container',
+                widgetTitle: 'MeetWay',
+                carpoolValue: 'Test localStorage...',
+                onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
+                    console.log('🚗 Test localStorage - Événement:', eventInfo);
+                    console.log('🚗 Test localStorage - Utilisateur:', userInfo);
+                    updateDetectedInfoDisplay(eventInfo);
+                    updateUserInfoDisplay(userInfo);
+                }
+            });
+            
+            setTimeout(() => {
+                const eventInfo = MeetWayWidget.getDetectedEventInfo();
+                const userInfo = MeetWayWidget.getUserInfo();
+                updateDetectedInfoDisplay(eventInfo);
+                updateUserInfoDisplay(userInfo);
+            }, 100);
+            
+            alert('Test localStorage lancé ! Vérifiez la console et l\'affichage.');
+        }
+        
+        // Fonction pour tester les cookies
+        function testCookies() {
+            console.log('🧪 Test cookies...');
+            
+            // Nettoyer les cookies existants
+            document.cookie = 'meetway_user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'meetway_email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'meetway_name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'meetway_phone=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'meetway_event_name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'meetway_event_date=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'meetway_event_location=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'meetway_event_price=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'meetway_event_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            
+            // Ajouter des cookies de test
+            document.cookie = 'meetway_user_id=USER-COOKIE-TEST; path=/';
+            document.cookie = 'meetway_email=cookie.test@example.com; path=/';
+            document.cookie = 'meetway_name=Test Cookie; path=/';
+            document.cookie = 'meetway_phone=+33222222222; path=/';
+            document.cookie = 'meetway_event_name=Événement Cookie; path=/';
+            document.cookie = 'meetway_event_date=2024-02-14T21:00:00; path=/';
+            document.cookie = 'meetway_event_location=Venue Cookie; path=/';
+            document.cookie = 'meetway_event_price=40€; path=/';
+            document.cookie = 'meetway_event_id=EVT-COOKIE-TEST; path=/';
+            
+            console.log('🍪 Cookies de test ajoutés');
+            
+            // Réinitialiser le widget
+            MeetWayWidget.init({
+                containerId: 'meetway-widget-container',
+                widgetTitle: 'MeetWay',
+                carpoolValue: 'Test cookies...',
+                onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
+                    console.log('🚗 Test cookies - Événement:', eventInfo);
+                    console.log('🚗 Test cookies - Utilisateur:', userInfo);
+                    updateDetectedInfoDisplay(eventInfo);
+                    updateUserInfoDisplay(userInfo);
+                }
+            });
+            
+            setTimeout(() => {
+                const eventInfo = MeetWayWidget.getDetectedEventInfo();
+                const userInfo = MeetWayWidget.getUserInfo();
+                updateDetectedInfoDisplay(eventInfo);
+                updateUserInfoDisplay(userInfo);
+            }, 100);
+            
+            alert('Test cookies lancé ! Vérifiez la console et l\'affichage.');
+        }
+    </script>
+</body>
+</html>
