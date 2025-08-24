@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemple d'intégration - MeetWay Widget Événement Agnostique</title>
+    <title>Exemple d'intégration - Meetway Widget Événement Agnostique</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -146,7 +146,7 @@
             </ul>
             
             <div class="integration-info">
-                <strong>💡 Intégration automatique :</strong> Le widget MeetWay détecte automatiquement 
+                <strong>💡 Intégration automatique :</strong> Le widget Meetway détecte automatiquement 
                 les informations de cette page (nom, date, lieu, prix) et les utilise pour l'appel API 
                 de covoiturage. Aucune configuration manuelle n'est nécessaire !
             </div>
@@ -155,8 +155,8 @@
                 <strong>🎯 Fourniture manuelle :</strong> Vous pouvez aussi fournir directement les données d'événement :
                 <div class="code-example">
 // Exemple de fourniture manuelle des données
-MeetWayWidget.init({
-    containerId: 'meetway-widget-container',
+MeetwayWidget.init({
+    containerId: 'Meetway-widget-container',
     eventData: {
         name: 'Festival de Musique 2024',
         date: '2024-06-15T19:00:00',
@@ -172,13 +172,13 @@ MeetWayWidget.init({
             </div>
         </div>
         
-        <!-- Widget MeetWay -->
+        <!-- Widget Meetway -->
         <div class="widget-sidebar">
-            <h3>🚗 Covoiturage MeetWay</h3>
+            <h3>🚗 Covoiturage Meetway</h3>
             <p>Partagez votre trajet et économisez sur vos déplacements !</p>
             
             <!-- Conteneur du widget -->
-            <div id="meetway-widget-container"></div>
+            <div id="Meetway-widget-container"></div>
             
             <div class="integration-info">
                 <strong>🔍 Détection automatique :</strong>
@@ -209,9 +209,9 @@ addEventSelector('id', '.my-event-id');
     <script src="widget.js"></script>
     <script>
         // Exemple 1: Intégration avec détection automatique
-        MeetWayWidget.init({
-            containerId: 'meetway-widget-container',
-            widgetTitle: 'MeetWay',
+        MeetwayWidget.init({
+            containerId: 'Meetway-widget-container',
+            widgetTitle: 'Meetway',
             carpoolValue: 'Partagez votre trajet et économisez sur vos déplacements !',
             onCarpoolInterest: function(isInterested, eventInfo) {
                 console.log('🚗 Intérêt covoiturage:', isInterested);
@@ -255,8 +255,8 @@ addEventSelector('id', '.my-event-id');
         
         // Exemple 3: Fourniture manuelle des données (décommentez pour tester)
         /*
-        MeetWayWidget.init({
-            containerId: 'meetway-widget-container',
+        MeetwayWidget.init({
+            containerId: 'Meetway-widget-container',
             eventData: {
                 name: 'Festival de Musique 2024 (Données manuelles)',
                 date: '2024-06-15T19:00:00',
@@ -273,7 +273,7 @@ addEventSelector('id', '.my-event-id');
         
         // Affichage des informations détectées dans la console
         setTimeout(() => {
-            const eventInfo = MeetWayWidget.getDetectedEventInfo();
+            const eventInfo = MeetwayWidget.getDetectedEventInfo();
             console.log('🔍 Informations d\'événement détectées automatiquement:', eventInfo);
         }, 100);
     </script>

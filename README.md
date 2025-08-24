@@ -1,11 +1,11 @@
-# MeetWay Widget - Proof of Concept
+# Meetway Widget - Proof of Concept
 
 Un widget JavaScript événement agnostique pour l'intégration de covoiturage dans les pages de billetterie.
 
 ## 🚀 Fonctionnalités
 
 - **Événement agnostique** : Détecte automatiquement les informations d'événement sur la page
-- **Widget simplifié** : Affiche seulement "MeetWay", la proposition de valeur et la checkbox
+- **Widget simplifié** : Affiche seulement "Meetway", la proposition de valeur et la checkbox
 - **Système de hiérarchie unifié** : Récupération intelligente des données événement et utilisateur
 - **Fourniture manuelle** : Possibilité de fournir directement les données d'événement et utilisateur
 - **Sélecteurs configurables** : Ajout de sélecteurs personnalisés pour améliorer la détection
@@ -16,7 +16,7 @@ Un widget JavaScript événement agnostique pour l'intégration de covoiturage d
 ## 📁 Structure du projet
 
 ```
-meetway-widget-js/
+Meetway-widget-js/
 ├── index.html              # Page de démonstration principale
 ├── widget.js               # Widget JavaScript principal
 ├── config.js               # Configuration et sélecteurs personnalisables
@@ -32,7 +32,7 @@ meetway-widget-js/
 
 ```html
 <!-- Conteneur pour le widget -->
-<div id="meetway-widget-container"></div>
+<div id="Meetway-widget-container"></div>
 
 <!-- Inclusion des scripts -->
 <script src="config.js"></script>
@@ -40,8 +40,8 @@ meetway-widget-js/
 
 <!-- Initialisation -->
 <script>
-    MeetWayWidget.init({
-        containerId: 'meetway-widget-container',
+    MeetwayWidget.init({
+        containerId: 'Meetway-widget-container',
         onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
             console.log('Intérêt covoiturage:', isInterested);
             console.log('Informations événement:', eventInfo);
@@ -55,8 +55,8 @@ meetway-widget-js/
 ### 2. Fourniture manuelle des données
 
 ```javascript
-MeetWayWidget.init({
-    containerId: 'meetway-widget-container',
+MeetwayWidget.init({
+    containerId: 'Meetway-widget-container',
     eventData: {
         name: 'Mon Événement',
         date: '2024-01-15T20:00:00',
@@ -81,9 +81,9 @@ MeetWayWidget.init({
 ### 3. Configuration avancée
 
 ```javascript
-MeetWayWidget.init({
-    containerId: 'meetway-widget-container',
-    widgetTitle: 'MeetWay',                    // Titre du widget
+MeetwayWidget.init({
+    containerId: 'Meetway-widget-container',
+    widgetTitle: 'Meetway',                    // Titre du widget
     carpoolValue: 'Partagez votre trajet !',   // Proposition de valeur
     eventData: {                               // Données événement manuelles (optionnel)
         name: 'Événement personnalisé',
@@ -134,15 +134,15 @@ eventData: {
 ```
 
 #### 2. localStorage
-Clé : `meetway_event_info` (expiration : 1 jour)
+Clé : `Meetway_event_info` (expiration : 1 jour)
 
 #### 3. Cookies
-Préfixe : `meetway_event_`
-- `meetway_event_name`
-- `meetway_event_date`
-- `meetway_event_location`
-- `meetway_event_price`
-- `meetway_event_id`
+Préfixe : `Meetway_event_`
+- `Meetway_event_name`
+- `Meetway_event_date`
+- `Meetway_event_location`
+- `Meetway_event_price`
+- `Meetway_event_id`
 
 #### 4. Sélecteurs DOM
 ```javascript
@@ -167,14 +167,14 @@ userData: {
 ```
 
 #### 2. localStorage
-Clé : `meetway_user_info` (expiration : 7 jours)
+Clé : `Meetway_user_info` (expiration : 7 jours)
 
 #### 3. Cookies
-Préfixe : `meetway_`
-- `meetway_user_id`
-- `meetway_email`
-- `meetway_name`
-- `meetway_phone`
+Préfixe : `Meetway_`
+- `Meetway_user_id`
+- `Meetway_email`
+- `Meetway_name`
+- `Meetway_phone`
 
 #### 4. Sélecteurs DOM
 ```javascript
@@ -223,27 +223,27 @@ eventDetection: {
 
 ### Méthodes principales
 
-#### `MeetWayWidget.init(config)`
+#### `MeetwayWidget.init(config)`
 Initialise le widget avec la configuration fournie.
 
 **Paramètres :**
 - `config.containerId` (string) : ID du conteneur HTML
-- `config.widgetTitle` (string) : Titre du widget (défaut: "MeetWay")
+- `config.widgetTitle` (string) : Titre du widget (défaut: "Meetway")
 - `config.carpoolValue` (string) : Proposition de valeur du covoiturage
 - `config.eventData` (object) : Données d'événement fournies manuellement (optionnel)
 - `config.userData` (object) : Données utilisateur fournies manuellement (optionnel)
 - `config.onCarpoolInterest` (function) : Callback pour l'intérêt covoiturage
 
-#### `MeetWayWidget.updateEventData(eventData)`
+#### `MeetwayWidget.updateEventData(eventData)`
 Met à jour les données d'événement et les sauvegarde dans localStorage.
 
-#### `MeetWayWidget.updateUserInfo(newUserInfo)`
+#### `MeetwayWidget.updateUserInfo(newUserInfo)`
 Met à jour les informations utilisateur et les sauvegarde dans localStorage.
 
-#### `MeetWayWidget.getDetectedEventInfo()`
+#### `MeetwayWidget.getDetectedEventInfo()`
 Retourne les informations d'événement récupérées.
 
-#### `MeetWayWidget.getUserInfo()`
+#### `MeetwayWidget.getUserInfo()`
 Retourne les informations utilisateur récupérées.
 
 ### Fonctions de configuration
@@ -323,7 +323,7 @@ Pour tester le widget :
 
 ## 📄 Licence
 
-Ce projet est un Proof of Concept développé pour MeetWay.
+Ce projet est un Proof of Concept développé pour Meetway.
 
 ## 🤝 Contribution
 

@@ -1,6 +1,6 @@
-# MeetWay Widget - Documentation Technique
+# Meetway Widget - Documentation Technique
 
-Documentation technique pour les développeurs souhaitant contribuer ou étendre le widget MeetWay.
+Documentation technique pour les développeurs souhaitant contribuer ou étendre le widget Meetway.
 
 ## 🏗️ Architecture
 
@@ -8,7 +8,7 @@ Documentation technique pour les développeurs souhaitant contribuer ou étendre
 
 Le widget utilise une architecture modulaire basée sur le pattern Strategy pour la récupération des données. L'architecture est divisée en plusieurs couches :
 
-1. **Couche d'initialisation** : `MeetWayWidget.init()`
+1. **Couche d'initialisation** : `MeetwayWidget.init()`
 2. **Couche de gestion des données** : `UserInfoManager` et `EventInfoManager`
 3. **Couche de stratégies** : Classes Strategy pour chaque source de données
 4. **Couche de rendu** : Génération et affichage du widget
@@ -116,36 +116,36 @@ isDataValid(timestamp, maxAge = 7 * 24 * 60 * 60 * 1000) {
 
 #### Clés de stockage
 
-- `meetway_user_info` : Données utilisateur
-- `meetway_event_info` : Données événement
+- `Meetway_user_info` : Données utilisateur
+- `Meetway_event_info` : Données événement
 
 ### Gestion des cookies
 
 #### Préfixes
 
-- **Utilisateurs** : `meetway_`
-- **Événements** : `meetway_event_`
+- **Utilisateurs** : `Meetway_`
+- **Événements** : `Meetway_event_`
 
 #### Cookies supportés
 
 **Utilisateurs :**
-- `meetway_user_id`
-- `meetway_email`
-- `meetway_name`
-- `meetway_phone`
+- `Meetway_user_id`
+- `Meetway_email`
+- `Meetway_name`
+- `Meetway_phone`
 
 **Événements :**
-- `meetway_event_name`
-- `meetway_event_date`
-- `meetway_event_location`
-- `meetway_event_price`
-- `meetway_event_id`
+- `Meetway_event_name`
+- `Meetway_event_date`
+- `Meetway_event_location`
+- `Meetway_event_price`
+- `Meetway_event_id`
 
 ## 🔧 API Reference
 
 ### Méthodes publiques
 
-#### `MeetWayWidget.init(config)`
+#### `MeetwayWidget.init(config)`
 
 Initialise le widget avec la configuration fournie.
 
@@ -153,7 +153,7 @@ Initialise le widget avec la configuration fournie.
 ```javascript
 {
     containerId: string,           // ID du conteneur HTML
-    widgetTitle?: string,          // Titre du widget (défaut: "MeetWay")
+    widgetTitle?: string,          // Titre du widget (défaut: "Meetway")
     carpoolValue?: string,         // Proposition de valeur
     eventData?: object,            // Données événement manuelles
     userData?: object,             // Données utilisateur manuelles
@@ -169,46 +169,46 @@ Initialise le widget avec la configuration fournie.
 5. Récupération des informations événement (hiérarchie)
 6. Rendu du widget
 
-#### `MeetWayWidget.updateEventData(eventData)`
+#### `MeetwayWidget.updateEventData(eventData)`
 
 Met à jour les données d'événement et les sauvegarde automatiquement.
 
 ```javascript
-MeetWayWidget.updateEventData({
+MeetwayWidget.updateEventData({
     name: 'Nouveau nom',
     price: 'Nouveau prix'
 });
 // Sauvegarde automatique dans localStorage
 ```
 
-#### `MeetWayWidget.updateUserInfo(newUserInfo)`
+#### `MeetwayWidget.updateUserInfo(newUserInfo)`
 
 Met à jour les informations utilisateur et les sauvegarde automatiquement.
 
 ```javascript
-MeetWayWidget.updateUserInfo({
+MeetwayWidget.updateUserInfo({
     email: 'nouveau@email.com',
     phone: '+33987654321'
 });
 // Sauvegarde automatique dans localStorage
 ```
 
-#### `MeetWayWidget.getDetectedEventInfo()`
+#### `MeetwayWidget.getDetectedEventInfo()`
 
 Retourne une copie des informations d'événement récupérées.
 
 ```javascript
-const eventInfo = MeetWayWidget.getDetectedEventInfo();
+const eventInfo = MeetwayWidget.getDetectedEventInfo();
 console.log('Source:', eventInfo.source);
 console.log('Nom:', eventInfo.name);
 ```
 
-#### `MeetWayWidget.getUserInfo()`
+#### `MeetwayWidget.getUserInfo()`
 
 Retourne une copie des informations utilisateur récupérées.
 
 ```javascript
-const userInfo = MeetWayWidget.getUserInfo();
+const userInfo = MeetwayWidget.getUserInfo();
 console.log('Source:', userInfo.source);
 console.log('Email:', userInfo.email);
 ```
@@ -275,28 +275,28 @@ onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
 ### Classes CSS principales
 
 ```css
-.meetway-widget              /* Conteneur principal */
-.meetway-widget-header       /* En-tête du widget */
-.meetway-widget-title        /* Titre principal */
-.meetway-widget-subtitle     /* Sous-titre */
-.meetway-carpool-section     /* Section covoiturage */
-.meetway-carpool-value       /* Proposition de valeur */
-.meetway-checkbox-container  /* Conteneur checkbox */
-.meetway-checkbox           /* Checkbox */
-.meetway-checkbox-label     /* Label checkbox */
-.meetway-success-message    /* Message de succès */
+.Meetway-widget              /* Conteneur principal */
+.Meetway-widget-header       /* En-tête du widget */
+.Meetway-widget-title        /* Titre principal */
+.Meetway-widget-subtitle     /* Sous-titre */
+.Meetway-carpool-section     /* Section covoiturage */
+.Meetway-carpool-value       /* Proposition de valeur */
+.Meetway-checkbox-container  /* Conteneur checkbox */
+.Meetway-checkbox           /* Checkbox */
+.Meetway-checkbox-label     /* Label checkbox */
+.Meetway-success-message    /* Message de succès */
 ```
 
 ### Responsive Design
 
 ```css
 @media (max-width: 480px) {
-    .meetway-widget {
+    .Meetway-widget {
         padding: 20px;
         margin: 10px;
     }
     
-    .meetway-widget-title {
+    .Meetway-widget-title {
         font-size: 24px;
     }
 }
@@ -377,7 +377,7 @@ describe('UserInfoManager', () => {
 
 ```javascript
 // Test de l'initialisation complète
-describe('MeetWayWidget', () => {
+describe('MeetwayWidget', () => {
     it('should initialize with all data sources', async () => {
         // Test implementation
     });
@@ -412,12 +412,12 @@ describe('MeetWayWidget', () => {
 
 ```html
 <!-- Intégration simple -->
-<div id="meetway-widget-container"></div>
+<div id="Meetway-widget-container"></div>
 <script src="config.js"></script>
 <script src="widget.js"></script>
 <script>
-    MeetWayWidget.init({
-        containerId: 'meetway-widget-container',
+    MeetwayWidget.init({
+        containerId: 'Meetway-widget-container',
         onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
             // Votre logique API
         }
@@ -429,14 +429,14 @@ describe('MeetWayWidget', () => {
 
 ```javascript
 // config.js
-window.MeetWayConfig = {
+window.MeetwayConfig = {
     eventDetection: {
         nameSelectors: ['.event-title', '.concert-name'],
         dateSelectors: ['.event-date', '[datetime]'],
         // ... autres sélecteurs
     },
     api: {
-        endpoint: 'https://api.meetway.com/carpool-interest'
+        endpoint: 'https://api.Meetway.com/carpool-interest'
     }
 };
 ```

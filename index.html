@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MeetWay Widget - PoC Covoiturage Événement Agnostique</title>
+    <title>Meetway Widget - PoC Covoiturage Événement Agnostique</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -191,7 +191,7 @@
     </style>
 </head>
 <body>
-    <h1>MeetWay Widget - Proof of Concept</h1>
+    <h1>Meetway Widget - Proof of Concept</h1>
     <h2 style="text-align: center; color: #666; margin-bottom: 30px;">Widget de Covoiturage Événement Agnostique</h2>
     
     <div class="container">
@@ -228,7 +228,7 @@
                 <ol>
                     <li><strong>Données manuelles</strong> (priorité maximale)</li>
                     <li><strong>localStorage</strong> (expiration : 1 jour pour événements, 7 jours pour utilisateurs)</li>
-                    <li><strong>Cookies</strong> (préfixe meetway_event_ et meetway_)</li>
+                    <li><strong>Cookies</strong> (préfixe Meetway_event_ et Meetway_)</li>
                     <li><strong>Sélecteurs DOM</strong> (détection automatique)</li>
                     <li><strong>Fallback</strong> (données minimales)</li>
                 </ol>
@@ -275,14 +275,14 @@
         
         <!-- Section Widget -->
         <div class="widget-section">
-            <h2>🚗 Widget MeetWay</h2>
+            <h2>🚗 Widget Meetway</h2>
             <div class="demo-info">
-                <strong>🎯 Widget simplifié :</strong> Le widget affiche seulement "MeetWay", 
+                <strong>🎯 Widget simplifié :</strong> Le widget affiche seulement "Meetway", 
                 la proposition de valeur du covoiturage et la checkbox d'intérêt.
             </div>
             
             <!-- Conteneur du widget -->
-            <div id="meetway-widget-container"></div>
+            <div id="Meetway-widget-container"></div>
             
             <div class="demo-info">
                 <strong>📊 Informations d'événement détectées :</strong> 
@@ -306,9 +306,9 @@
         // Initialisation du widget événement agnostique
         document.addEventListener('DOMContentLoaded', async function() {
             // Initialisation du widget avec détection automatique
-            await MeetWayWidget.init({
-                containerId: 'meetway-widget-container',
-                widgetTitle: 'MeetWay',
+            await MeetwayWidget.init({
+                containerId: 'Meetway-widget-container',
+                widgetTitle: 'Meetway',
                 carpoolValue: 'Partagez votre trajet et économisez sur vos déplacements !',
                 onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
                     console.log('🚗 Intérêt covoiturage:', isInterested);
@@ -330,8 +330,8 @@
             
             // Affichage initial des informations détectées
             setTimeout(() => {
-                const eventInfo = MeetWayWidget.getDetectedEventInfo();
-                const userInfo = MeetWayWidget.getUserInfo();
+                const eventInfo = MeetwayWidget.getDetectedEventInfo();
+                const userInfo = MeetwayWidget.getUserInfo();
                 updateDetectedInfoDisplay(eventInfo);
                 updateUserInfoDisplay(userInfo);
             }, 100);
@@ -384,9 +384,9 @@
             };
             
             // Réinitialiser le widget avec les données manuelles
-            MeetWayWidget.init({
-                containerId: 'meetway-widget-container',
-                widgetTitle: 'MeetWay',
+            MeetwayWidget.init({
+                containerId: 'Meetway-widget-container',
+                widgetTitle: 'Meetway',
                 carpoolValue: 'Partagez votre trajet et économisez sur vos déplacements !',
                 eventData: manualData,
                 onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
@@ -412,9 +412,9 @@
             };
             
             // Réinitialiser le widget avec les données utilisateur manuelles
-            MeetWayWidget.init({
-                containerId: 'meetway-widget-container',
-                widgetTitle: 'MeetWay',
+            MeetwayWidget.init({
+                containerId: 'Meetway-widget-container',
+                widgetTitle: 'Meetway',
                 carpoolValue: 'Partagez votre trajet et économisez sur vos déplacements !',
                 userData: manualUserData,
                 onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
@@ -438,10 +438,10 @@
                 date: '2024-06-15T21:00:00'
             };
             
-            MeetWayWidget.updateEventData(updatedData);
+            MeetwayWidget.updateEventData(updatedData);
             currentMode = 'manual-updated';
             
-            const eventInfo = MeetWayWidget.getDetectedEventInfo();
+            const eventInfo = MeetwayWidget.getDetectedEventInfo();
             updateDetectedInfoDisplay(eventInfo);
             
             console.log('✅ Données d\'événement mises à jour');
@@ -449,9 +449,9 @@
         
         // Fonction pour revenir à la détection automatique
         function resetToAutoDetection() {
-            MeetWayWidget.init({
-                containerId: 'meetway-widget-container',
-                widgetTitle: 'MeetWay',
+            MeetwayWidget.init({
+                containerId: 'Meetway-widget-container',
+                widgetTitle: 'Meetway',
                 carpoolValue: 'Partagez votre trajet et économisez sur vos déplacements !',
                 autoDetectEventInfo: true,
                 onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
@@ -466,8 +466,8 @@
             currentMode = 'auto';
             
             setTimeout(() => {
-                const eventInfo = MeetWayWidget.getDetectedEventInfo();
-                const userInfo = MeetWayWidget.getUserInfo();
+                const eventInfo = MeetwayWidget.getDetectedEventInfo();
+                const userInfo = MeetwayWidget.getUserInfo();
                 updateDetectedInfoDisplay(eventInfo);
                 updateUserInfoDisplay(userInfo);
             }, 100);
@@ -520,13 +520,13 @@
                 timestamp: new Date().toISOString()
             };
             
-            localStorage.setItem('meetway_user_info', JSON.stringify(testUserData));
+            localStorage.setItem('Meetway_user_info', JSON.stringify(testUserData));
             console.log('💾 Données utilisateur de test sauvegardées dans localStorage');
             
             // Réinitialiser le widget pour tester la récupération
-            MeetWayWidget.init({
-                containerId: 'meetway-widget-container',
-                widgetTitle: 'MeetWay',
+            MeetwayWidget.init({
+                containerId: 'Meetway-widget-container',
+                widgetTitle: 'Meetway',
                 carpoolValue: 'Test de récupération utilisateur...',
                 onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
                     console.log('🚗 Test récupération utilisateur:', userInfo);
@@ -535,7 +535,7 @@
             });
             
             setTimeout(() => {
-                const userInfo = MeetWayWidget.getUserInfo();
+                const userInfo = MeetwayWidget.getUserInfo();
                 updateUserInfoDisplay(userInfo);
             }, 100);
             
@@ -558,13 +558,13 @@
                 timestamp: new Date().toISOString()
             };
             
-            localStorage.setItem('meetway_event_info', JSON.stringify(testEventData));
+            localStorage.setItem('Meetway_event_info', JSON.stringify(testEventData));
             console.log('💾 Données événement de test sauvegardées dans localStorage');
             
             // Réinitialiser le widget pour tester la récupération
-            MeetWayWidget.init({
-                containerId: 'meetway-widget-container',
-                widgetTitle: 'MeetWay',
+            MeetwayWidget.init({
+                containerId: 'Meetway-widget-container',
+                widgetTitle: 'Meetway',
                 carpoolValue: 'Test de récupération événement...',
                 onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
                     console.log('🚗 Test récupération événement:', eventInfo);
@@ -573,7 +573,7 @@
             });
             
             setTimeout(() => {
-                const eventInfo = MeetWayWidget.getDetectedEventInfo();
+                const eventInfo = MeetwayWidget.getDetectedEventInfo();
                 updateDetectedInfoDisplay(eventInfo);
             }, 100);
             
@@ -585,8 +585,8 @@
             console.log('🧪 Test localStorage...');
             
             // Nettoyer localStorage
-            localStorage.removeItem('meetway_user_info');
-            localStorage.removeItem('meetway_event_info');
+            localStorage.removeItem('Meetway_user_info');
+            localStorage.removeItem('Meetway_event_info');
             
             // Ajouter des données de test
             const testUserData = {
@@ -608,15 +608,15 @@
                 timestamp: new Date().toISOString()
             };
             
-            localStorage.setItem('meetway_user_info', JSON.stringify(testUserData));
-            localStorage.setItem('meetway_event_info', JSON.stringify(testEventData));
+            localStorage.setItem('Meetway_user_info', JSON.stringify(testUserData));
+            localStorage.setItem('Meetway_event_info', JSON.stringify(testEventData));
             
             console.log('💾 Données de test ajoutées dans localStorage');
             
             // Réinitialiser le widget
-            MeetWayWidget.init({
-                containerId: 'meetway-widget-container',
-                widgetTitle: 'MeetWay',
+            MeetwayWidget.init({
+                containerId: 'Meetway-widget-container',
+                widgetTitle: 'Meetway',
                 carpoolValue: 'Test localStorage...',
                 onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
                     console.log('🚗 Test localStorage - Événement:', eventInfo);
@@ -627,8 +627,8 @@
             });
             
             setTimeout(() => {
-                const eventInfo = MeetWayWidget.getDetectedEventInfo();
-                const userInfo = MeetWayWidget.getUserInfo();
+                const eventInfo = MeetwayWidget.getDetectedEventInfo();
+                const userInfo = MeetwayWidget.getUserInfo();
                 updateDetectedInfoDisplay(eventInfo);
                 updateUserInfoDisplay(userInfo);
             }, 100);
@@ -641,33 +641,33 @@
             console.log('🧪 Test cookies...');
             
             // Nettoyer les cookies existants
-            document.cookie = 'meetway_user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-            document.cookie = 'meetway_email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-            document.cookie = 'meetway_name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-            document.cookie = 'meetway_phone=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-            document.cookie = 'meetway_event_name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-            document.cookie = 'meetway_event_date=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-            document.cookie = 'meetway_event_location=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-            document.cookie = 'meetway_event_price=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-            document.cookie = 'meetway_event_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'Meetway_user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'Meetway_email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'Meetway_name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'Meetway_phone=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'Meetway_event_name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'Meetway_event_date=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'Meetway_event_location=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'Meetway_event_price=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'Meetway_event_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
             
             // Ajouter des cookies de test
-            document.cookie = 'meetway_user_id=USER-COOKIE-TEST; path=/';
-            document.cookie = 'meetway_email=cookie.test@example.com; path=/';
-            document.cookie = 'meetway_name=Test Cookie; path=/';
-            document.cookie = 'meetway_phone=+33222222222; path=/';
-            document.cookie = 'meetway_event_name=Événement Cookie; path=/';
-            document.cookie = 'meetway_event_date=2024-02-14T21:00:00; path=/';
-            document.cookie = 'meetway_event_location=Venue Cookie; path=/';
-            document.cookie = 'meetway_event_price=40€; path=/';
-            document.cookie = 'meetway_event_id=EVT-COOKIE-TEST; path=/';
+            document.cookie = 'Meetway_user_id=USER-COOKIE-TEST; path=/';
+            document.cookie = 'Meetway_email=cookie.test@example.com; path=/';
+            document.cookie = 'Meetway_name=Test Cookie; path=/';
+            document.cookie = 'Meetway_phone=+33222222222; path=/';
+            document.cookie = 'Meetway_event_name=Événement Cookie; path=/';
+            document.cookie = 'Meetway_event_date=2024-02-14T21:00:00; path=/';
+            document.cookie = 'Meetway_event_location=Venue Cookie; path=/';
+            document.cookie = 'Meetway_event_price=40€; path=/';
+            document.cookie = 'Meetway_event_id=EVT-COOKIE-TEST; path=/';
             
             console.log('🍪 Cookies de test ajoutés');
             
             // Réinitialiser le widget
-            MeetWayWidget.init({
-                containerId: 'meetway-widget-container',
-                widgetTitle: 'MeetWay',
+            MeetwayWidget.init({
+                containerId: 'Meetway-widget-container',
+                widgetTitle: 'Meetway',
                 carpoolValue: 'Test cookies...',
                 onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
                     console.log('🚗 Test cookies - Événement:', eventInfo);
@@ -678,8 +678,8 @@
             });
             
             setTimeout(() => {
-                const eventInfo = MeetWayWidget.getDetectedEventInfo();
-                const userInfo = MeetWayWidget.getUserInfo();
+                const eventInfo = MeetwayWidget.getDetectedEventInfo();
+                const userInfo = MeetwayWidget.getUserInfo();
                 updateDetectedInfoDisplay(eventInfo);
                 updateUserInfoDisplay(userInfo);
             }, 100);

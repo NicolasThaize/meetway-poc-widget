@@ -1,17 +1,16 @@
 /**
- * Configuration du widget MeetWay
+ * Configuration du widget Meetway
  * 
  * Ce fichier permet de personnaliser facilement l'apparence et le comportement
  * du widget sans modifier le code principal.
  */
 
-const MeetWayConfig = {
+const MeetwayConfig = {
     // Configuration générale
     general: {
         theme: 'light',                    // 'light' ou 'dark'
         language: 'fr',                    // 'fr', 'en', 'es'
         showCarpoolOption: true,           // Afficher l'option covoiturage
-        enableAnimations: true,            // Activer les animations
         autoUpdate: true                   // Mise à jour automatique
     },
     
@@ -64,13 +63,7 @@ const MeetWayConfig = {
         enableMobileOptimization: true     // Optimisation mobile
     },
     
-    // Configuration des animations
-    animations: {
-        fadeInDuration: 300,               // Durée de l'animation fadeIn (ms)
-        slideInDuration: 400,              // Durée de l'animation slideIn (ms)
-        enableHoverEffects: true,          // Effets au survol
-        enableClickEffects: true           // Effets au clic
-    },
+
     
     // Configuration de débogage
     debug: {
@@ -127,7 +120,7 @@ const MeetWayConfig = {
 // Fonction pour obtenir une configuration
 function getConfig(path) {
     const keys = path.split('.');
-    let value = MeetWayConfig;
+    let value = MeetwayConfig;
     
     for (const key of keys) {
         if (value && typeof value === 'object' && key in value) {
@@ -143,7 +136,7 @@ function getConfig(path) {
 // Fonction pour définir une configuration
 function setConfig(path, value) {
     const keys = path.split('.');
-    let current = MeetWayConfig;
+    let current = MeetwayConfig;
     
     for (let i = 0; i < keys.length - 1; i++) {
         const key = keys[i];
@@ -158,10 +151,10 @@ function setConfig(path, value) {
 
 // Fonction pour ajouter un sélecteur personnalisé
 function addEventSelector(field, selector) {
-    if (!MeetWayConfig.eventDetection[field + 'Selectors']) {
-        MeetWayConfig.eventDetection[field + 'Selectors'] = [];
+    if (!MeetwayConfig.eventDetection[field + 'Selectors']) {
+        MeetwayConfig.eventDetection[field + 'Selectors'] = [];
     }
-    MeetWayConfig.eventDetection[field + 'Selectors'].push(selector);
+    MeetwayConfig.eventDetection[field + 'Selectors'].push(selector);
 }
 
 // Fonction pour ajouter plusieurs sélecteurs personnalisés
@@ -180,15 +173,15 @@ function resetConfig() {
 
 // Fonction pour obtenir tous les sélecteurs d'un champ
 function getEventSelectors(field) {
-    return MeetWayConfig.eventDetection[field + 'Selectors'] || [];
+    return MeetwayConfig.eventDetection[field + 'Selectors'] || [];
 }
 
 // Exposition de l'API de configuration
 if (typeof window !== 'undefined') {
-    window.MeetWayConfig = MeetWayConfig;
-    window.getMeetWayConfig = getConfig;
-    window.setMeetWayConfig = setConfig;
-    window.resetMeetWayConfig = resetConfig;
+    window.MeetwayConfig = MeetwayConfig;
+    window.getMeetwayConfig = getConfig;
+    window.setMeetwayConfig = setConfig;
+    window.resetMeetwayConfig = resetConfig;
     window.addEventSelector = addEventSelector;
     window.addEventSelectors = addEventSelectors;
     window.getEventSelectors = getEventSelectors;
@@ -197,7 +190,7 @@ if (typeof window !== 'undefined') {
 // Export pour Node.js
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
-        MeetWayConfig,
+        MeetwayConfig,
         getConfig,
         setConfig,
         resetConfig,

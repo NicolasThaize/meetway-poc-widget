@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test MeetWay Widget - Événement Agnostique</title>
+    <title>Test Meetway Widget - Événement Agnostique</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -90,7 +90,7 @@
 </head>
 <body>
     <div class="test-container">
-        <h1>🧪 Test MeetWay Widget - Événement Agnostique</h1>
+        <h1>🧪 Test Meetway Widget - Événement Agnostique</h1>
         
         <!-- Test 1: Initialisation du widget -->
         <div class="test-section">
@@ -183,9 +183,9 @@
             log('🧪 Test 1: Initialisation du widget...');
             
             try {
-                MeetWayWidget.init({
+                MeetwayWidget.init({
                     containerId: 'widget-test-1',
-                    widgetTitle: 'MeetWay',
+                    widgetTitle: 'Meetway',
                     carpoolValue: 'Partagez votre trajet et économisez !',
                     onCarpoolInterest: function(isInterested, eventInfo) {
                         log(`🚗 Intérêt covoiturage: ${isInterested}`);
@@ -204,9 +204,9 @@
             log('🧪 Test 2: Test de détection automatique...');
             
             try {
-                MeetWayWidget.init({
+                MeetwayWidget.init({
                     containerId: 'widget-test-2',
-                    widgetTitle: 'MeetWay',
+                    widgetTitle: 'Meetway',
                     carpoolValue: 'Détection automatique en cours...',
                     onCarpoolInterest: function(isInterested, eventInfo) {
                         log(`🚗 Callback avec infos détectées: ${isInterested}`);
@@ -229,7 +229,7 @@
             log('🔍 Affichage des informations détectées...');
             
             try {
-                const eventInfo = MeetWayWidget.getDetectedEventInfo();
+                const eventInfo = MeetwayWidget.getDetectedEventInfo();
                 log(`📋 Nom détecté: ${eventInfo.name || 'Non détecté'}`);
                 log(`📅 Date détectée: ${eventInfo.date || 'Non détecté'}`);
                 log(`📍 Lieu détecté: ${eventInfo.location || 'Non détecté'}`);
@@ -246,9 +246,9 @@
             log('🧪 Test 3: Test de la fonctionnalité covoiturage...');
             
             try {
-                MeetWayWidget.init({
+                MeetwayWidget.init({
                     containerId: 'widget-test-3',
-                    widgetTitle: 'MeetWay',
+                    widgetTitle: 'Meetway',
                     carpoolValue: 'Testez la checkbox de covoiturage !',
                     onCarpoolInterest: function(isInterested, eventInfo) {
                         log(`🚗 Callback covoiturage appelé: ${isInterested}`);
