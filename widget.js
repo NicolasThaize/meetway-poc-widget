@@ -34,8 +34,6 @@
             padding: 20px;
             color: #333;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            max-width: 350px;
-            margin: 0 auto;
             position: relative;
         }
         
@@ -55,9 +53,7 @@
         }
         
         .Meetway-logo {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
+            
         }
         
         .Meetway-logo-image {
@@ -1033,7 +1029,7 @@
                     <div class="Meetway-widget-header">
                         <h3 class="Meetway-widget-title">Venir en covoiturage</h3>
                         <div class="Meetway-logo">
-                            <img src="/assets/meetway-logo.png" alt="Meetway Logo" class="Meetway-logo-image" style="width: 80px; height: auto;">
+                            <img src="/assets/meetway-logo.png" alt="Meetway Logo" class="Meetway-logo-image" style="width: 100px; height: auto;">
                         </div>
                     </div>
                     
