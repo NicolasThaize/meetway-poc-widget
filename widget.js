@@ -17,87 +17,162 @@
         apiEndpoint: '/api/carpool-interest',
         autoDetectEventInfo: true,
         widgetTitle: 'Meetway',
-        carpoolValue: 'Partagez votre trajet et économisez sur vos déplacements !'
+        featureTags: {
+            tag1: 'Votre place réservée et payée',
+            tag2: 'Économisez 10€',
+            tag3: 'Rencontrez du monde'
+        }
     };
 
     // Styles CSS intégrés pour le widget
     const WIDGET_STYLES = `
         .Meetway-widget {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            padding: 25px;
-            color: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background: white;
+            border: 2px solid rgb(241, 98, 16);
+            border-radius: 12px;
+            padding: 20px;
+            color: #333;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             max-width: 350px;
             margin: 0 auto;
+            position: relative;
         }
         
         .Meetway-widget-header {
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
             margin-bottom: 20px;
         }
         
         .Meetway-widget-title {
-            font-size: 28px;
+            font-size: 20px;
             font-weight: bold;
-            margin: 0 0 5px 0;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .Meetway-widget-subtitle {
-            font-size: 14px;
-            opacity: 0.9;
             margin: 0;
-            font-style: italic;
+            color: #333;
+            flex: 1;
         }
         
-        .Meetway-carpool-section {
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
+        .Meetway-logo {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
         }
         
-        .Meetway-carpool-value {
-            font-size: 14px;
-            text-align: center;
+        .Meetway-logo-image {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+        
+        .Meetway-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
             margin-bottom: 20px;
-            line-height: 1.5;
-            opacity: 0.95;
+        }
+        
+        .Meetway-feature-tag {
+            background: rgb(241, 98, 16);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
         }
         
         .Meetway-checkbox-container {
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         
         .Meetway-checkbox {
-            width: 20px;
-            height: 20px;
-            accent-color: #4CAF50;
+            width: 18px;
+            height: 18px;
+            accent-color: rgb(241, 98, 16);
             cursor: pointer;
+            border-radius: 3px;
         }
         
         .Meetway-checkbox-label {
             font-size: 14px;
             cursor: pointer;
             user-select: none;
+            color: #333;
+        }
+        
+        .Meetway-cgu-text {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .Meetway-cgu-link {
+            color: rgb(241, 98, 16);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        
+        .Meetway-cgu-link:hover {
+            color: #d17a0f;
+        }
+        
+        .Meetway-validate-button {
+            background: rgb(241, 98, 16);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
             font-weight: 500;
+            cursor: not-allowed;
+            box-shadow: 0 2px 4px rgba(241, 98, 16, 0.3);
+            transition: all 0.2s ease;
+            opacity: 0.5;
+        }
+        
+        .Meetway-validate-button:hover {
+            background: rgb(241, 98, 16);
+            box-shadow: 0 2px 4px rgba(241, 98, 16, 0.3);
+            transform: none;
+        }
+        
+        .Meetway-validate-button:active {
+            transform: none;
+            box-shadow: 0 2px 4px rgba(241, 98, 16, 0.3);
+        }
+        
+        .Meetway-validate-button.enabled {
+            opacity: 1;
+            cursor: pointer;
+        }
+        
+        .Meetway-validate-button.enabled:hover {
+            background: #d17a0f;
+            box-shadow: 0 4px 8px rgba(241, 98, 16, 0.4);
+            transform: translateY(-1px);
+        }
+        
+        .Meetway-validate-button.enabled:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(241, 98, 16, 0.3);
         }
         
         .Meetway-success-message {
-            background: rgba(76, 175, 80, 0.2);
+            background: rgba(76, 175, 80, 0.1);
             border: 1px solid rgba(76, 175, 80, 0.3);
-            border-radius: 8px;
-            padding: 12px;
+            border-radius: 6px;
+            padding: 10px;
             margin-top: 15px;
             text-align: center;
-            font-size: 13px;
+            font-size: 12px;
             display: none;
+            color: #333;
         }
         
         .Meetway-success-message.show {
@@ -106,12 +181,21 @@
         
         @media (max-width: 480px) {
             .Meetway-widget {
-                padding: 20px;
+                padding: 15px;
                 margin: 10px;
             }
             
             .Meetway-widget-title {
-                font-size: 24px;
+                font-size: 18px;
+            }
+            
+            .Meetway-features {
+                gap: 6px;
+            }
+            
+            .Meetway-feature-tag {
+                font-size: 11px;
+                padding: 5px 10px;
             }
         }
     `;
@@ -768,6 +852,14 @@
             // Fusion de la configuration par défaut avec celle fournie
             widgetConfig = { ...DEFAULT_CONFIG, ...config };
             
+            // Fusion des feature tags avec la configuration globale si disponible
+            if (window.MeetwayConfig && window.MeetwayConfig.featureTags) {
+                widgetConfig.featureTags = { 
+                    ...widgetConfig.featureTags, 
+                    ...window.MeetwayConfig.featureTags 
+                };
+            }
+            
             // Injection des styles CSS
             MeetwayWidget.injectStyles();
             
@@ -841,24 +933,64 @@
          */
         static handleCarpoolChange(event) {
             const isInterested = event.target.checked;
+            const validateButton = widgetContainer.querySelector('#validate-carpool');
+            
+            // Activer/désactiver le bouton de validation
+            if (validateButton) {
+                if (isInterested) {
+                    validateButton.classList.add('enabled');
+                } else {
+                    validateButton.classList.remove('enabled');
+                }
+            }
+        }
+        
+        /**
+         * Gère le clic sur le bouton de validation
+         * @param {Event} event - Événement de clic
+         */
+        static handleValidateClick(event) {
+            // Vérifier si le bouton est activé
+            if (!event.target.classList.contains('enabled')) {
+                return; // Ne rien faire si le bouton est désactivé
+            }
+            
             const successMessage = widgetContainer.querySelector('.Meetway-success-message');
             
             // Appel de la fonction de callback si définie
             if (widgetConfig.onCarpoolInterest) {
-                widgetConfig.onCarpoolInterest(isInterested, detectedEventInfo, userInfo);
+                widgetConfig.onCarpoolInterest(true, detectedEventInfo, userInfo);
             }
             
             // Simulation d'un appel API (à remplacer par un vrai appel)
-            MeetwayWidget.simulateApiCall(isInterested);
+            MeetwayWidget.simulateApiCall(true);
             
             // Affichage du message de succès
             if (successMessage) {
-                if (isInterested) {
-                    successMessage.textContent = '✅ Intérêt enregistré ! Nous vous contacterons pour organiser le covoiturage.';
-                    successMessage.classList.add('show');
-                } else {
-                    successMessage.classList.remove('show');
-                }
+                successMessage.textContent = '✅ Intérêt enregistré ! Nous vous contacterons pour organiser le covoiturage.';
+                successMessage.classList.add('show');
+            }
+            
+            // Désactiver le bouton après validation
+            const validateButton = widgetContainer.querySelector('#validate-carpool');
+            if (validateButton) {
+                validateButton.classList.remove('enabled');
+            }
+        }
+        
+        /**
+         * Gère le clic sur le lien CGU
+         * @param {Event} event - Événement de clic
+         */
+        static handleCguClick(event) {
+            event.preventDefault();
+            
+            // Appel de la fonction de callback si définie
+            if (widgetConfig.onCguClick) {
+                widgetConfig.onCguClick();
+            } else {
+                // Fallback: ouvrir dans une nouvelle fenêtre
+                window.open('https://meetway.fr/cgu', '_blank');
             }
         }
         
@@ -899,24 +1031,34 @@
             return `
                 <div class="Meetway-widget">
                     <div class="Meetway-widget-header">
-                        <h3 class="Meetway-widget-title">${widgetConfig.widgetTitle}</h3>
-                        <p class="Meetway-widget-subtitle">Covoiturage intelligent</p>
+                        <h3 class="Meetway-widget-title">Venir en covoiturage</h3>
+                        <div class="Meetway-logo">
+                            <img src="/assets/meetway-logo.png" alt="Meetway Logo" class="Meetway-logo-image" style="width: 80px; height: auto;">
+                        </div>
                     </div>
                     
-                    <div class="Meetway-carpool-section">
-                        <p class="Meetway-carpool-value">
-                            ${widgetConfig.carpoolValue}
-                        </p>
-                        
-                        <div class="Meetway-checkbox-container">
-                            <input type="checkbox" id="carpool-interest" class="Meetway-checkbox">
-                            <label for="carpool-interest" class="Meetway-checkbox-label">
-                                Je suis intéressé par le covoiturage
-                            </label>
-                        </div>
-                        
-                        <div class="Meetway-success-message"></div>
+                    <div class="Meetway-features">
+                        <span class="Meetway-feature-tag">${widgetConfig.featureTags.tag1}</span>
+                        <span class="Meetway-feature-tag">${widgetConfig.featureTags.tag2}</span>
+                        <span class="Meetway-feature-tag">${widgetConfig.featureTags.tag3}</span>
                     </div>
+                    
+                    <div class="Meetway-checkbox-container">
+                        <input type="checkbox" id="carpool-interest" class="Meetway-checkbox">
+                        <label for="carpool-interest" class="Meetway-checkbox-label">
+                            Je suis intéressé(e) pour covoiturer
+                        </label>
+                    </div>
+                    
+                    <div class="Meetway-cgu-text">
+                        En cochant cette case, vous acceptez nos <span class="Meetway-cgu-link">conditions générales d'utilisation de Meetway.</span>
+                    </div>
+                    
+                    <button type="button" class="Meetway-validate-button" id="validate-carpool">
+                        Valider
+                    </button>
+                    
+                    <div class="Meetway-success-message"></div>
                 </div>
             `;
         }
@@ -933,6 +1075,18 @@
             const carpoolCheckbox = widgetContainer.querySelector('#carpool-interest');
             if (carpoolCheckbox) {
                 carpoolCheckbox.addEventListener('change', MeetwayWidget.handleCarpoolChange);
+            }
+            
+            // Ajout de l'écouteur d'événement pour le bouton de validation
+            const validateButton = widgetContainer.querySelector('#validate-carpool');
+            if (validateButton) {
+                validateButton.addEventListener('click', MeetwayWidget.handleValidateClick);
+            }
+            
+            // Ajout de l'écouteur d'événement pour le lien CGU
+            const cguLink = widgetContainer.querySelector('.Meetway-cgu-link');
+            if (cguLink) {
+                cguLink.addEventListener('click', MeetwayWidget.handleCguClick);
             }
         }
         

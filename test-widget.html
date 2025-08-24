@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Widget Meetway</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .test-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Test du Widget Meetway</h1>
+        <div id="Meetway-widget-container"></div>
+    </div>
+
+    <script src="widget.js"></script>
+    <script>
+        // Initialisation du widget
+        MeetwayWidget.init({
+            containerId: 'Meetway-widget-container',
+            // Configuration personnalisée des feature tags
+            featureTags: {
+                tag1: 'Votre place réservée et payée',
+                tag2: 'Économisez 10€',
+                tag3: 'Rencontrez du monde'
+            },
+            onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
+                console.log('🚗 Intérêt covoiturage:', isInterested);
+                console.log('📋 Informations d\'événement:', eventInfo);
+                console.log('👤 Informations utilisateur:', userInfo);
+            },
+            onCguClick: function() {
+                console.log('📄 CGU cliqué - ouverture des conditions générales');
+                alert('Ouverture des conditions générales d\'utilisation...');
+            }
+        });
+    </script>
+</body>
+</html>

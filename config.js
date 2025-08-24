@@ -34,7 +34,7 @@ const MeetwayConfig = {
     
     // Configuration des messages
     messages: {
-        carpoolInterest: 'Je suis intéressé par le covoiturage',
+        carpoolInterest: 'Je suis intéressé(e) pour covoiturer',
         carpoolDescription: 'Cochez cette case si vous souhaitez partager votre trajet ou trouver un covoiturage pour cet événement.',
         successMessage: '✅ Intérêt enregistré ! Nous vous contacterons pour organiser le covoiturage.',
         errorMessage: '❌ Erreur lors de l\'enregistrement. Veuillez réessayer.',
@@ -43,6 +43,13 @@ const MeetwayConfig = {
         locationNotDefined: 'Lieu non défini',
         priceNotDefined: 'Prix non défini',
         eventNotDefined: 'Événement non défini'
+    },
+    
+    // Configuration des tags de fonctionnalités
+    featureTags: {
+        tag1: 'Votre place réservée et payée',
+        tag2: 'Économisez 10€',
+        tag3: 'Rencontrez du monde'
     },
     
     // Configuration des icônes

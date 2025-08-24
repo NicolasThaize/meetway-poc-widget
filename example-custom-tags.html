@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemple - Tags personnalisés</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .example-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .widget-demo {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .code-example {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 12px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="example-container">
+        <h1>🎯 Exemple - Tags de fonctionnalités personnalisés</h1>
+        
+        <h2>Méthode 1: Configuration globale (config.js)</h2>
+        <p>Modifiez le fichier <code>config.js</code> pour changer les tags par défaut :</p>
+        <div class="code-example">
+// Dans config.js
+const MeetwayConfig = {
+    // ... autres configurations ...
+    featureTags: {
+        tag1: '🚗 Covoiturage garanti',
+        tag2: '💰 Économisez 15€',
+        tag3: '🤝 Communauté bienveillante'
+    }
+};
+        </div>
+        
+        <h2>Méthode 2: Configuration locale (dans l'initialisation)</h2>
+        <p>Passez les tags directement lors de l'initialisation du widget :</p>
+        <div class="code-example">
+MeetwayWidget.init({
+    containerId: 'Meetway-widget-container',
+    featureTags: {
+        tag1: '🎫 Place garantie',
+        tag2: '💸 Réduction 20€',
+        tag3: '🌟 Expérience unique'
+    }
+});
+        </div>
+        
+        <h2>Démonstration avec tags personnalisés :</h2>
+        <div class="widget-demo">
+            <div id="Meetway-widget-container"></div>
+        </div>
+        
+        <h2>Exemples de tags créatifs :</h2>
+        <div class="code-example">
+// Tags pour un festival de musique
+featureTags: {
+    tag1: '🎵 Ambiance garantie',
+    tag2: '🎪 Transport inclus',
+    tag3: '🎭 Nouveaux amis'
+}
+
+// Tags pour un événement sportif
+featureTags: {
+    tag1: '⚽ Support d\'équipe',
+    tag2: '🏆 Économisez 25€',
+    tag3: '🎯 Parking inclus'
+}
+
+// Tags pour une conférence
+featureTags: {
+    tag1: '💼 Networking',
+    tag2: '📚 Économisez 30€',
+    tag3: '☕ Café offert'
+}
+        </div>
+    </div>
+
+    <!-- Configuration globale personnalisée -->
+    <script>
+        // Surcharge de la configuration globale pour cet exemple
+        window.MeetwayConfig = {
+            ...window.MeetwayConfig,
+            featureTags: {
+                tag1: '🎯 Tags personnalisés',
+                tag2: '⚙️ Configuration facile',
+                tag3: '🚀 Exemple pratique'
+            }
+        };
+    </script>
+    
+    <script src="config.js"></script>
+    <script src="widget.js"></script>
+    <script>
+        // Initialisation du widget avec tags personnalisés
+        MeetwayWidget.init({
+            containerId: 'Meetway-widget-container',
+            onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
+                console.log('🚗 Intérêt covoiturage:', isInterested);
+                console.log('📋 Informations d\'événement:', eventInfo);
+                console.log('👤 Informations utilisateur:', userInfo);
+            },
+            onCguClick: function() {
+                console.log('📄 CGU cliqué');
+                alert('Ouverture des conditions générales...');
+            }
+        });
+    </script>
+</body>
+</html>
