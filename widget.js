@@ -269,9 +269,12 @@
             // 5. Fallback avec informations minimales
             const fallbackInfo = {
                 id: null,
+                firstName: null,
+                lastName: null,
                 email: null,
-                name: null,
                 phone: null,
+                billingAddress: null,
+                customData: {},
                 source: 'fallback',
                 timestamp: new Date().toISOString()
             };
@@ -362,10 +365,9 @@
             const fallbackInfo = {
                 name: '',
                 date: '',
-                time: '',
-                location: '',
-                price: '',
+                description: null,
                 id: '',
+                customData: {},
                 url: window.location.href,
                 pageTitle: document.title,
                 source: 'fallback',
@@ -397,9 +399,12 @@
         getUserInfo(userData) {
             return {
                 id: userData.id || userData.userId || userData.user_id || null,
+                firstName: userData.firstName || userData.first_name || userData.prenom || null,
+                lastName: userData.lastName || userData.last_name || userData.nom || null,
                 email: userData.email || userData.mail || null,
-                name: userData.name || userData.fullName || userData.full_name || null,
-                phone: userData.phone || userData.telephone || userData.phoneNumber || null,
+                phone: userData.phone || userData.telephone || userData.phoneNumber || userData.tel || null,
+                billingAddress: userData.billingAddress || userData.billing_address || userData.adresse || null,
+                customData: userData.customData || userData.custom_data || userData.metadata || {},
                 source: 'manual',
                 timestamp: new Date().toISOString()
             };
@@ -414,10 +419,9 @@
             return {
                 name: eventData.name || eventData.title || eventData.eventName || '',
                 date: eventData.date || eventData.eventDate || eventData.datetime || '',
-                time: eventData.time || eventData.eventTime || '',
-                location: eventData.location || eventData.venue || eventData.place || eventData.address || '',
-                price: eventData.price || eventData.ticketPrice || eventData.cost || '',
+                description: eventData.description || eventData.desc || eventData.details || null,
                 id: eventData.id || eventData.eventId || eventData.event_id || '',
+                customData: eventData.customData || eventData.custom_data || eventData.metadata || {},
                 url: eventData.url || window.location.href,
                 pageTitle: eventData.pageTitle || document.title,
                 source: 'manual',
@@ -547,14 +551,28 @@
                 if (cookies[this.cookiePrefix + 'user_id']) {
                     userInfo.id = cookies[this.cookiePrefix + 'user_id'];
                 }
+                if (cookies[this.cookiePrefix + 'first_name']) {
+                    userInfo.firstName = cookies[this.cookiePrefix + 'first_name'];
+                }
+                if (cookies[this.cookiePrefix + 'last_name']) {
+                    userInfo.lastName = cookies[this.cookiePrefix + 'last_name'];
+                }
                 if (cookies[this.cookiePrefix + 'email']) {
                     userInfo.email = cookies[this.cookiePrefix + 'email'];
                 }
-                if (cookies[this.cookiePrefix + 'name']) {
-                    userInfo.name = cookies[this.cookiePrefix + 'name'];
-                }
                 if (cookies[this.cookiePrefix + 'phone']) {
                     userInfo.phone = cookies[this.cookiePrefix + 'phone'];
+                }
+                if (cookies[this.cookiePrefix + 'billing_address']) {
+                    userInfo.billingAddress = cookies[this.cookiePrefix + 'billing_address'];
+                }
+                // Récupération des données personnalisées (stockées en JSON)
+                if (cookies[this.cookiePrefix + 'custom_data']) {
+                    try {
+                        userInfo.customData = JSON.parse(cookies[this.cookiePrefix + 'custom_data']);
+                    } catch (e) {
+                        userInfo.customData = {};
+                    }
                 }
 
                 return Object.keys(userInfo).length > 0 ? {
@@ -606,14 +624,19 @@
                 if (cookies[this.cookiePrefix + 'date']) {
                     eventInfo.date = cookies[this.cookiePrefix + 'date'];
                 }
-                if (cookies[this.cookiePrefix + 'location']) {
-                    eventInfo.location = cookies[this.cookiePrefix + 'location'];
-                }
-                if (cookies[this.cookiePrefix + 'price']) {
-                    eventInfo.price = cookies[this.cookiePrefix + 'price'];
+                if (cookies[this.cookiePrefix + 'description']) {
+                    eventInfo.description = cookies[this.cookiePrefix + 'description'];
                 }
                 if (cookies[this.cookiePrefix + 'id']) {
                     eventInfo.id = cookies[this.cookiePrefix + 'id'];
+                }
+                // Récupération des données personnalisées (stockées en JSON)
+                if (cookies[this.cookiePrefix + 'custom_data']) {
+                    try {
+                        eventInfo.customData = JSON.parse(cookies[this.cookiePrefix + 'custom_data']);
+                    } catch (e) {
+                        eventInfo.customData = {};
+                    }
                 }
 
                 return Object.keys(eventInfo).length > 0 ? {
@@ -658,17 +681,25 @@
                     '[data-user-id]', '[data-userid]', '.user-id', '.userid',
                     '[data-account-id]', '.account-id', '.member-id'
                 ],
+                firstName: [
+                    '[data-user-first-name]', '[data-first-name]', '.user-first-name', '.first-name',
+                    '[data-user-prenom]', '.user-prenom', '.prenom'
+                ],
+                lastName: [
+                    '[data-user-last-name]', '[data-last-name]', '.user-last-name', '.last-name',
+                    '[data-user-nom]', '.user-nom', '.nom'
+                ],
                 email: [
                     '[data-user-email]', '[data-email]', '.user-email', '.email',
                     'input[type="email"]', '.account-email', '.member-email'
                 ],
-                name: [
-                    '[data-user-name]', '[data-name]', '.user-name', '.name',
-                    '.full-name', '.account-name', '.member-name'
-                ],
                 phone: [
                     '[data-user-phone]', '[data-phone]', '.user-phone', '.phone',
                     'input[type="tel"]', '.account-phone', '.member-phone'
+                ],
+                billingAddress: [
+                    '[data-user-billing-address]', '[data-billing-address]', '.user-billing-address',
+                    '[data-user-adresse]', '[data-adresse]', '.user-adresse', '.adresse'
                 ]
             };
         }
@@ -703,11 +734,15 @@
                     // Essayer d'abord les attributs data
                     const dataValue = element.getAttribute('data-user-id') || 
                                      element.getAttribute('data-user-email') ||
-                                     element.getAttribute('data-user-name') ||
+                                     element.getAttribute('data-user-first-name') ||
+                                     element.getAttribute('data-user-last-name') ||
                                      element.getAttribute('data-user-phone') ||
+                                     element.getAttribute('data-user-billing-address') ||
                                      element.getAttribute('data-email') ||
-                                     element.getAttribute('data-name') ||
-                                     element.getAttribute('data-phone');
+                                     element.getAttribute('data-first-name') ||
+                                     element.getAttribute('data-last-name') ||
+                                     element.getAttribute('data-phone') ||
+                                     element.getAttribute('data-billing-address');
                     
                     if (dataValue) {
                         return dataValue;
@@ -743,13 +778,9 @@
                     '[data-event-date]', '.event-date', '.date', '.event-time',
                     'time', '[datetime]', '.event-datetime'
                 ],
-                location: eventDetection.locationSelectors || [
-                    '[data-event-location]', '.event-location', '.location',
-                    '.venue', '.place', '.address'
-                ],
-                price: eventDetection.priceSelectors || [
-                    '[data-event-price]', '.event-price', '.price', '.ticket-price',
-                    '.cost', '.amount', '.price-amount'
+                description: eventDetection.descriptionSelectors || [
+                    '[data-event-description]', '.event-description', '.description',
+                    '.event-details', '.event-desc', '.event-summary'
                 ],
                 id: eventDetection.idSelectors || [
                     '[data-event-id]', '.event-id', '[data-concert-id]',
@@ -763,9 +794,7 @@
                 const eventInfo = {
                     name: '',
                     date: '',
-                    time: '',
-                    location: '',
-                    price: '',
+                    description: null,
                     id: '',
                     url: window.location.href,
                     pageTitle: document.title
@@ -780,18 +809,17 @@
                     eventInfo.date = dateValue;
                 }
 
-                // Détection du lieu
-                eventInfo.location = this.extractValueFromSelectors(this.selectors.location);
-
-                // Détection du prix
-                eventInfo.price = this.extractValueFromSelectors(this.selectors.price);
+                // Détection de la description
+                const descriptionValue = this.extractValueFromSelectors(this.selectors.description);
+                if (descriptionValue) {
+                    eventInfo.description = descriptionValue;
+                }
 
                 // Détection de l'ID de l'événement
                 eventInfo.id = this.extractValueFromSelectors(this.selectors.id);
 
                 // Vérifier si au moins une information a été trouvée
-                const hasInfo = eventInfo.name || eventInfo.date || eventInfo.location || 
-                               eventInfo.price || eventInfo.id;
+                const hasInfo = eventInfo.name || eventInfo.date || eventInfo.description || eventInfo.id;
 
                 return hasInfo ? {
                     ...eventInfo,
@@ -811,13 +839,10 @@
                     // Essayer d'abord les attributs data
                     const dataValue = element.getAttribute('data-event-name') ||
                                      element.getAttribute('data-event-date') ||
-                                     element.getAttribute('data-event-location') ||
-                                     element.getAttribute('data-event-price') ||
+                                     element.getAttribute('data-event-description') ||
                                      element.getAttribute('data-event-id') ||
                                      element.getAttribute('data-concert-id') ||
                                      element.getAttribute('data-show-id') ||
-                                     element.getAttribute('data-venue') ||
-                                     element.getAttribute('data-ticket-price') ||
                                      element.getAttribute('datetime');
                     
                     if (dataValue) {

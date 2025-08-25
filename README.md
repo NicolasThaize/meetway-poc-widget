@@ -60,15 +60,24 @@ MeetwayWidget.init({
     eventData: {
         name: 'Mon Événement',
         date: '2024-01-15T20:00:00',
-        location: 'Salle de concert',
-        price: '25€',
-        id: 'EVT-2024-001'
+        description: 'Description de l\'événement',
+        id: 'EVT-2024-001',
+        customData: {
+            category: 'concert',
+            capacity: 1000
+        }
     },
     userData: {
         id: 'USER-123',
+        firstName: 'John',
+        lastName: 'Doe',
         email: 'user@example.com',
-        name: 'John Doe',
-        phone: '+33123456789'
+        phone: '+33123456789',
+        billingAddress: '123 Rue de la Paix, 75001 Paris',
+        customData: {
+            loyaltyLevel: 'gold',
+            preferences: ['rock', 'jazz']
+        }
     },
     onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
         // Les données fournies manuellement sont prioritaires

@@ -147,7 +147,7 @@
             
             <div class="integration-info">
                 <strong>💡 Intégration automatique :</strong> Le widget Meetway détecte automatiquement 
-                les informations de cette page (nom, date, lieu, prix) et les utilise pour l'appel API 
+                les informations de cette page (nom, date, description) et les utilise pour l'appel API 
                 de covoiturage. Aucune configuration manuelle n'est nécessaire !
             </div>
             
@@ -160,11 +160,27 @@ MeetwayWidget.init({
     eventData: {
         name: 'Festival de Musique 2024',
         date: '2024-06-15T19:00:00',
-        location: 'Parc des Expositions - Hall A',
-        price: '75€',
-        id: 'FEST-2024-001'
+        description: 'Une soirée exceptionnelle avec les meilleurs artistes',
+        id: 'FEST-2024-001',
+        customData: {
+            category: 'festival',
+            capacity: 5000,
+            organizer: 'Music Productions'
+        }
     },
-    onCarpoolInterest: function(isInterested, eventInfo) {
+    userData: {
+        id: 'USER-123',
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john.doe@example.com',
+        phone: '+33123456789',
+        billingAddress: '123 Rue de la Paix, 75001 Paris',
+        customData: {
+            loyaltyLevel: 'gold',
+            preferences: ['rock', 'jazz']
+        }
+    },
+    onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
         // Votre logique API ici
     }
 });
@@ -185,8 +201,8 @@ MeetwayWidget.init({
                 <ul style="margin: 10px 0; padding-left: 20px; font-size: 12px;">
                     <li>Nom : Festival de Musique 2024</li>
                     <li>Date : Samedi 15 juin 2024 à 19h00</li>
-                    <li>Lieu : Parc des Expositions - Hall A</li>
-                    <li>Prix : 75€</li>
+                    <li>Description : Une soirée exceptionnelle avec les meilleurs artistes</li>
+                    <li>ID : FEST-2024-001</li>
                 </ul>
             </div>
             
@@ -196,8 +212,7 @@ MeetwayWidget.init({
 // Ajouter des sélecteurs personnalisés
 addEventSelector('name', '.my-event-title');
 addEventSelector('date', '.my-event-date');
-addEventSelector('location', '.my-venue');
-addEventSelector('price', '.my-price');
+addEventSelector('description', '.my-event-description');
 addEventSelector('id', '.my-event-id');
                 </div>
             </div>
@@ -260,13 +275,26 @@ addEventSelector('id', '.my-event-id');
             eventData: {
                 name: 'Festival de Musique 2024 (Données manuelles)',
                 date: '2024-06-15T19:00:00',
-                location: 'Parc des Expositions - Hall A',
-                price: '75€',
-                id: 'FEST-2024-001-MANUAL'
+                description: 'Une soirée exceptionnelle avec les meilleurs artistes',
+                id: 'FEST-2024-001-MANUAL',
+                customData: {
+                    category: 'festival',
+                    capacity: 5000
+                }
             },
-            onCarpoolInterest: function(isInterested, eventInfo) {
+            userData: {
+                id: 'USER-123',
+                firstName: 'John',
+                lastName: 'Doe',
+                email: 'john.doe@example.com',
+                customData: {
+                    loyaltyLevel: 'gold'
+                }
+            },
+            onCarpoolInterest: function(isInterested, eventInfo, userInfo) {
                 console.log('🚗 Intérêt covoiturage (manuel):', isInterested);
                 console.log('📋 Informations d\'événement (manuel):', eventInfo);
+                console.log('👤 Informations utilisateur (manuel):', userInfo);
             }
         });
         */

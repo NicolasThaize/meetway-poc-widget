@@ -99,20 +99,12 @@ const MeetwayConfig = {
             '[data-concert-date]', '[data-show-date]'
         ],
         
-        // Sélecteurs pour le lieu de l'événement
-        locationSelectors: [
-            '[data-event-location]', '.event-location', '.location',
-            '.venue', '.place', '.address', '.concert-venue',
-            '.show-venue', '.festival-location', '.event-venue',
-            '[data-venue]', '[data-location]', '.event-place'
-        ],
-        
-        // Sélecteurs pour le prix de l'événement
-        priceSelectors: [
-            '[data-event-price]', '.event-price', '.price', '.ticket-price',
-            '.cost', '.amount', '.price-amount', '.concert-price',
-            '.show-price', '.festival-price', '.ticket-cost',
-            '[data-price]', '[data-ticket-price]', '.event-cost'
+        // Sélecteurs pour la description de l'événement
+        descriptionSelectors: [
+            '[data-event-description]', '.event-description', '.description',
+            '.event-details', '.event-desc', '.event-summary',
+            '.concert-description', '.show-description', '.festival-description',
+            '[data-event-desc]', '[data-event-details]'
         ],
         
         // Sélecteurs pour l'ID de l'événement

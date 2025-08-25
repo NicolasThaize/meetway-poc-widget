@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation d'achat - Meetway Widget</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .confirmation-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .confirmation-box {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            color: #155724;
+        }
+        
+        .success-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .confirmation-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .confirmation-message {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .download-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            transition: background 0.2s ease;
+        }
+        
+        .download-button:hover {
+            background: #218838;
+        }
+        
+        .ticket-details {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .ticket-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .ticket-field {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .ticket-field:last-child {
+            border-bottom: none;
+        }
+        
+        .field-label {
+            font-weight: 500;
+            color: #666;
+        }
+        
+        .field-value {
+            color: #333;
+        }
+        
+        .widget-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .widget-intro {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .widget-intro h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .widget-intro p {
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .widget-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .widget-container > div {
+            width: 100%;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .code-example {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 12px;
+            overflow-x: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .confirmation-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- En-tête -->
+        <div class="header">
+            <div class="logo">Billetterie</div>
+            <p>Votre billetterie</p>
+        </div>
+        
+        <!-- Section confirmation en deux colonnes -->
+        <div class="confirmation-section">
+            <!-- Message de confirmation -->
+            <div class="confirmation-box">
+                <h1 class="confirmation-title">Achat validé avec succès !</h1>
+                <p class="confirmation-message">
+                    Votre commande a été traitée avec succès. Vous recevrez un email de confirmation 
+                    dans les prochaines minutes avec vos billets en pièce jointe.
+                </p>
+                <a href="#" class="download-button">Télécharger mes billets</a>
+                <a href="#" class="download-button">Recevoir par email</a>
+            </div>
+            
+            <!-- Détails du billet -->
+            <div class="ticket-details">
+                <h2 class="ticket-title">Détails de votre commande</h2>
+                <div class="ticket-field">
+                    <span class="field-label">Numéro de commande :</span>
+                    <span class="field-value">CMD-2024-001234</span>
+                </div>
+                <div class="ticket-field">
+                    <span class="field-label">Événement :</span>
+                    <span class="field-value">Concert Jazz, le 20/07/2024 à 20h00, Sunset Jazz Club, Paris</span>
+                </div>
+                <div class="ticket-field">
+                    <span class="field-label">Nombre de places :</span>
+                    <span class="field-value">2</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section Widget Meetway -->
+        <div class="widget-section">
+            <div class="widget-intro">
+                <h3>Et si vous veniez en covoiturage ?</h3>
+                <p>
+                    Partagez votre trajet avec d'autres participants et économisez sur vos déplacements. 
+                    Meetway vous met en relation avec des covoitureurs pour cet événement.
+                </p>
+            </div>
+            
+            <!-- Conteneur du widget -->
+            <div class="widget-container">
+                <div id="meetway-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Intégration du widget -->
+    <script src="config.js"></script>
+    <script src="widget.js"></script>
+    <script>
+        // Simulation de données récupérées depuis la commande
+        const orderData = {
+            eventName: 'Concert Jazz au Sunset',
+            eventDate: '2024-07-20T20:00:00',
+            eventDescription: 'Une soirée exceptionnelle avec les meilleurs musiciens de jazz de la région',
+            eventId: 'JAZZ-2024-001',
+            eventLocation: 'Sunset Jazz Club, Paris',
+            eventPrice: '45€',
+            orderId: 'CMD-2024-001234',
+            ticketsCount: 2,
+            totalAmount: '90€',
+            userEmail: 'john.doe@example.com',
+            userName: 'John Doe'
+        };
+
+        // Intégration du widget avec contexte d'achat
+        MeetwayWidget.init({
+            containerId: 'meetway-container',
+            eventData: {
+                name: orderData.eventName,
+                date: orderData.eventDate,
+                description: orderData.eventDescription,
+                id: orderData.eventId,
+                customData: {
+                    location: orderData.eventLocation,
+                }
+            },
+            userData: {
+                id: 'USER-123',
+                email: orderData.userEmail,
+                firstName: 'John',
+                lastName: 'Doe',
+                billingAddress: '123 Rue sainte, Marseille, France',
+                customData: {
+                    ticketsCount: orderData.ticketsCount,
+                    totalAmount: orderData.totalAmount,
+                }
+            },
+            onInterest: function(isInterested, eventInfo, userInfo) {
+                console.log('Intérêt covoiturage post-achat:', isInterested);
+                console.log('Événement:', eventInfo);
+                console.log('Utilisateur:', userInfo);
+                
+                // Exemple d'appel API avec contexte d'achat
+                if (isInterested) {
+                    console.log('Envoi à l\'API avec contexte d\'achat...');
+                                
+                    fetch('https://meetway.org/api/carpool-interest', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            eventInfo: eventInfo,
+                            userInfo: userInfo,
+                            interested: true,
+                            context: 'post-purchase',
+                            timestamp: new Date().toISOString()
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Succès:', data);
+                        // Optionnel : rediriger vers une page de covoiturage
+                        // window.location.href = '/carpool-matching';
+                    })
+                    .catch(error => {
+                        console.error('Erreur:', error);
+                    });
+                }
+            }
+        });
+        
+    </script>
+</body>
+</html>

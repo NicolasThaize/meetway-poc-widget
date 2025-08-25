@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemple d'intégration - Meetway Widget Ultra-Simplifié</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        .event-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .widget-sidebar {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+        
+        .event-header {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .event-title {
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+        }
+        
+        .event-date {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .event-description {
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .event-details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .price {
+            font-size: 2em;
+            font-weight: bold;
+            color: #28a745;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .code-example {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 12px;
+            overflow-x: auto;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #ffc107;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Contenu de l'événement -->
+        <div class="event-content">
+            <div class="event-header">
+                <h1 class="event-title">🎵 Concert Jazz au Sunset</h1>
+                <p class="event-date">Samedi 20 juillet 2024 à 20h00</p>
+            </div>
+            
+            <p class="event-description">
+                Une soirée exceptionnelle avec les meilleurs musiciens de jazz de la région. 
+                Venez profiter d'une ambiance chaleureuse et de musiques envoûtantes dans un cadre idyllique.
+            </p>
+            
+            <div class="event-details">
+                <h3>Informations pratiques</h3>
+                <p><strong>Lieu :</strong> Sunset Jazz Club - 123 Avenue de la Musique, Paris</p>
+                <p><strong>Durée :</strong> 3 heures avec entracte</p>
+                <p><strong>Capacité :</strong> 200 places</p>
+                <p><strong>Restauration :</strong> Cocktails et tapas disponibles</p>
+            </div>
+            
+            <div class="price">
+                Prix : 45€
+            </div>
+            
+            <h3>Programme de la soirée</h3>
+            <ul>
+                <li>20h00 - Ouverture des portes</li>
+                <li>20h30 - Premier set : Trio Jazz</li>
+                <li>21h30 - Entracte</li>
+                <li>22h00 - Deuxième set : Quartet avec invités</li>
+                <li>23h30 - Fin de soirée</li>
+            </ul>
+            
+            <div class="warning-box">
+                <strong>⚠️ Version ultra-simplifiée :</strong> Dans cette version, toutes les informations 
+                d'événement doivent être fournies manuellement. Aucune détection automatique n'est effectuée.
+            </div>
+        </div>
+        
+        <!-- Widget Meetway -->
+        <div class="widget-sidebar">
+            <h3>🚗 Covoiturage Meetway</h3>
+            <p>Partagez votre trajet et économisez sur vos déplacements !</p>
+            
+            <!-- Conteneur du widget -->
+            <div id="meetway-container"></div>
+            
+            <div class="info-box">
+                <strong>📋 Données fournies manuellement :</strong>
+                <ul style="margin: 10px 0; padding-left: 20px; font-size: 12px;">
+                    <li>Nom : Concert Jazz au Sunset</li>
+                    <li>Date : 2024-07-20T20:00:00</li>
+                    <li>Description : Soirée jazz exceptionnelle</li>
+                    <li>ID : JAZZ-2024-001</li>
+                </ul>
+            </div>
+            
+            <div class="info-box">
+                <strong>⚙️ Configuration obligatoire :</strong>
+                <div class="code-example">
+// eventData est OBLIGATOIRE
+MeetwayWidget.init({
+    containerId: 'meetway-container',
+    eventData: {
+        name: 'Concert Jazz au Sunset',
+        date: '2024-07-20T20:00:00',
+        description: 'Soirée jazz exceptionnelle',
+        id: 'JAZZ-2024-001'
+    },
+    onInterest: function(isInterested, eventInfo, userInfo) {
+        console.log('Intérêt enregistré:', isInterested);
+        console.log('Événement:', eventInfo);
+    }
+});
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <strong>🎨 Personnalisation :</strong>
+                <div class="code-example">
+// Personnaliser les messages
+customizeMeetway({
+    messages: {
+        title: 'Covoiturage pour cet événement',
+        interestText: 'Je veux covoiturer !'
+    },
+    features: {
+        tag1: 'Économisez 15€',
+        tag2: 'Écologique',
+        tag3: 'Rencontres'
+    }
+});
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Intégration du widget -->
+    <script src="config.js"></script>
+    <script src="widget.js"></script>
+    <script>
+        // Exemple 1: Intégration avec données manuelles (OBLIGATOIRE)
+        MeetwayWidget.init({
+            containerId: 'meetway-container',
+            eventData: {
+                name: 'Concert Jazz au Sunset',
+                date: '2024-07-20T20:00:00',
+                description: 'Une soirée exceptionnelle avec les meilleurs musiciens de jazz de la région',
+                id: 'JAZZ-2024-001',
+                location: 'Sunset Jazz Club - 123 Avenue de la Musique, Paris',
+                price: '45€'
+            },
+            userData: {
+                id: 'USER-123',
+                email: 'user@example.com',
+                firstName: 'John',
+                lastName: 'Doe'
+            },
+            onInterest: function(isInterested, eventInfo, userInfo) {
+                console.log('Intérêt covoiturage:', isInterested);
+                console.log('Événement détecté:', eventInfo);
+                console.log('Utilisateur:', userInfo);
+                
+                // Exemple d'appel API
+                if (isInterested) {
+                    console.log('Envoi à l\'API...');
+                    
+                    // Décommentez pour tester un vrai appel API
+                    /*
+                    fetch('https://meetway.org/api/carpool-interest', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            eventInfo: eventInfo,
+                            userInfo: userInfo,
+                            interested: true,
+                            timestamp: new Date().toISOString()
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Succès:', data);
+                    })
+                    .catch(error => {
+                        console.error('Erreur:', error);
+                    });
+                    */
+                }
+            }
+        });
+        
+        // Exemple 2: Personnalisation des messages
+        // customizeMeetway({
+        //     messages: {
+        //         title: 'Covoiturage pour le concert',
+        //         interestText: 'Je veux partager mon trajet !'
+        //     }
+        // });
+        
+        // Exemple 3: Mise à jour des données après initialisation
+        // MeetwayWidget.updateEventData({
+        //     price: '50€',
+        //     capacity: 150
+        // });
+        
+        // Affichage des informations
+        setTimeout(() => {
+            const eventInfo = MeetwayWidget.getEventInfo();
+            console.log('Informations événement:', eventInfo);
+        }, 100);
+    </script>
+</body>
+</html>
