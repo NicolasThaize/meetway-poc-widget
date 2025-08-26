@@ -120,15 +120,36 @@
             transform: translateY(-1px);
         }
         
+        .meetway-edit-button {
+            color: #fff;
+            background: rgb(241, 98, 16);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            line-height: 1.2;
+        }
+
+        .meetway-edit-button:hover {
+            transform: translateY(-1px);
+            background: #d17a0f;
+        }
+
         .meetway-success {
-            background: rgba(76, 175, 80, 0.1);
-            border: 1px solid rgba(76, 175, 80, 0.3);
-            border-radius: 6px;
-            padding: 10px;
-            margin-top: 15px;
-            text-align: center;
-            font-size: 12px;
+            background: rgba(76, 175, 80, 0.08);
+            border: 1px solid rgba(76, 175, 80, 0.25);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-top: 12px;
+            text-align: left;
+            font-size: 13px;
+            line-height: 1.4;
             display: none;
+            font-weight: 600;
         }
         
         .meetway-success.show {
@@ -176,30 +197,70 @@
     /**
      * Gère le clic sur le bouton de validation
      */
-    function handleButtonClick() {
+    async function handleButtonClick() {
         const button = container.querySelector('.meetway-button');
         if (!button.classList.contains('enabled')) return;
 
-        const success = container.querySelector('.meetway-success');
-        
-        // Appel de callback si défini
-        if (config.onInterest) {
-            config.onInterest(true, eventInfo, userInfo);
-        }
-
-        // Simulation d'appel API
-        console.log('Intérêt covoiturage enregistré:', {
-            eventInfo,
-            userInfo,
-            timestamp: new Date().toISOString()
-        });
-
-        // Affichage du message de succès
-        success.textContent = config.messages.successMessage;
-        success.classList.add('show');
-
-        // Désactiver le bouton
+        // État de chargement
+        const originalButtonText = button.textContent;
+        button.textContent = 'Chargement...';
         button.classList.remove('enabled');
+
+        try {
+            // Appel de callback si défini (peut être synchrone ou retourner une Promise)
+            let maybePromise;
+            if (typeof config.onInterest === 'function') {
+                maybePromise = config.onInterest(true, eventInfo, userInfo);
+            }
+
+            let interestResult = null;
+            if (maybePromise && typeof maybePromise.then === 'function') {
+                interestResult = await maybePromise;
+            } else {
+                interestResult = maybePromise;
+            }
+
+            // Succès: remplacer la zone checkbox/bouton par un message et un bouton d'édition
+            const bottom = container.querySelector('.meetway-bottom');
+
+            const successMessage = config.messages.successMessage || '✅ Intérêt enregistré !';
+            // Extraction souple de l'URL de modification depuis la réponse API
+            // Prend en charge: string directe, { editUrl }, { url }, { data: { editUrl | url } }
+            let editUrlFromApi = null;
+            if (typeof interestResult === 'string') {
+                editUrlFromApi = interestResult;
+            } else if (interestResult && typeof interestResult === 'object') {
+                editUrlFromApi =
+                    interestResult.editUrl ||
+                    interestResult.edit_info_url ||
+                    interestResult.url ||
+                    (interestResult.data && (interestResult.data.editUrl || interestResult.data.url)) ||
+                    null;
+            }
+            const editUrl = editUrlFromApi || config.editInfoUrl || 'https://app.meetway.fr/profile';
+
+            bottom.innerHTML = `
+                <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+                    <div class="meetway-success show" style="display: block; margin: 0;">
+                        ${successMessage}
+                    </div>
+                    <a class="meetway-edit-button" href="${editUrl}" target="_blank" rel="noopener noreferrer">Modifier mes informations</a>
+                </div>
+            `;
+
+            // Log
+            console.log('Intérêt covoiturage enregistré:', {
+                eventInfo,
+                userInfo,
+                timestamp: new Date().toISOString()
+            });
+        } catch (error) {
+            console.error('Erreur lors de l\'enregistrement de l\'intérêt covoiturage:', error);
+            // En cas d'échec, on réactive le bouton et on restaure le texte
+            button.classList.add('enabled');
+            button.textContent = originalButtonText;
+            return;
+        }
     }
 
     /**
@@ -226,13 +287,14 @@
                     <img src="./assets/meetway-logo.png" alt="Meetway" class="meetway-logo">
                 </div>
                 
+                
+
+                <div class="meetway-bottom">
                 <div class="meetway-features">
                     <span class="meetway-tag">${config.features.tag1}</span>
                     <span class="meetway-tag">${config.features.tag2}</span>
                     <span class="meetway-tag">${config.features.tag3}</span>
                 </div>
-
-                <div class="meetway-bottom">
                 <div>
                     <div class="meetway-checkbox-container">
                         <input type="checkbox" id="meetway-interest" class="meetway-checkbox">

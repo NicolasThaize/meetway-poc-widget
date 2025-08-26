@@ -53,7 +53,8 @@ L'intégration du widget dans une page de billetterie se fait en trois étapes m
             pageTitle: 'Concert de Rock 2024 - Billetterie'
         },
         onInterest: function(isInterested, eventInfo, userInfo) {
-            // Logique de traitement de l'intérêt covoiturage
+            // Exemple simple: retourner directement une URL d'édition
+            return 'https://app.meetway.fr/edit/UNIQUE_USER_EVENT_ID';
         }
     });
 </script>
@@ -92,7 +93,12 @@ MeetwayWidget.init({
         }
     },
     onInterest: function(isInterested, eventInfo, userInfo) {
-        // Traitement de l'intérêt
+        // Exemple d'appel API renvoyant une URL d'édition
+        return fetch('https://api.example.com/carpool-interest', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ isInterested, eventInfo, userInfo })
+        }).then(r => r.json()); // Réponse doit contenir une URL: string ou { editUrl | url } ou { data: { editUrl | url } }
     }
 });
 ```
@@ -325,13 +331,20 @@ MeetwayWidget.init({
 
 ### Callbacks et événements
 
-Le widget utilise un système de callbacks simple pour communiquer avec le site hôte :
+Le widget utilise un système de callbacks simple pour communiquer avec le site hôte. Après validation et succès de l'appel API, l'interface remplace la checkbox et le bouton par un message de confirmation et un bouton « Modifier mes informations » qui pointe vers l'URL renvoyée par l'API. Si aucune URL n'est renvoyée, le widget utilise le fallback `editInfoUrl` défini dans `config.js`.
 
 ```javascript
+// Retour attendu pour onInterest: string | object | Promise<string | object>
+// La valeur résolue doit contenir l'URL d'édition envoyée par l'API
+// Formats acceptés: 
+// - string (URL directe)
+// - { editUrl } | { edit_info_url } | { url }
+// - { data: { editUrl | url } }
 onInterest: function(isInterested, eventInfo, userInfo) {
     // isInterested : boolean - L'utilisateur est-il intéressé
     // eventInfo : object - Informations d'événement fournies
     // userInfo : object - Informations utilisateur fournies
+    // Retourner la réponse de l'API (ou une Promise) contenant l'URL d'édition
 }
 
 onCguClick: function() {
