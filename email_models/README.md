@@ -47,18 +47,21 @@ Référence compatibilité e-mail: voir la liste des balises autorisées et bonn
     - Ton empathique, « vous » et « nous ».
     - Terminer par une transition vers l’action (« Vérifiez vos informations… »).
 
-- **Carte récap (table d’informations)**
-  - Conteneur `info-wrap` (bord arrondi + bordure légère).
-  - Barre d’accent supérieure `accent-bar` avec la couleur principale.
-  - Lignes: icône (emoji ou PNG), libellé, valeur.
-  - Exemple de lignes: rôle, type de trajet, club, lieux.
+- **Carte récap (table d’informations) – CLIQUABLE**
+  - Conteneur `info-wrap` (bord arrondi + bordure légère) + barre d’accent `accent-bar`.
+  - Lignes: icône (emoji/PNG), libellé, valeur.
+  - **Interaction**: libellé et valeur de chaque ligne sont des liens vers la page de modification correspondante (`?focus=role|trip|club|from|to`).
+  - Remplace l’ancienne section de « liens rapides » pour limiter la redondance et favoriser le clic in‑context.
 
 - **CTA principal**
   - Bouton plein arrondi (table + lien) avec couleur principale.
   - Texte d’action à l’infinitif: « Modifier mes informations ».
 
-- **Liens rapides**
-  - Liste de liens ciblés pour modifier un élément précis (paramètre `focus` dans l’URL).
+- **Suggestions de trajets (optionnel)**
+  - 2–3 cartes simples au format table.
+  - Badges: `Conducteur` et type (`Aller‑retour`, `Retour`, `Aller`).
+  - Contenu: prénom du conducteur et lignes trajets ville→ville (sans horaires).
+  - CTA par carte (ex: « Faire une demande ») vers l’URL de confirmation.
 
 - **Preuve sociale (trust)**
   - Bloc discret indiquant le nombre de covoitureurs inscrits.
@@ -73,7 +76,7 @@ Référence compatibilité e-mail: voir la liste des balises autorisées et bonn
 
 - **Police**: Roboto via `<link>` Google Fonts, fallback `Arial, Helvetica, sans-serif`. Appliquer globalement sur `body, table, td, div, p, a, span`.
 - **Couleur principale**: `rgb(241, 98, 16)` (`#F16210`).
-  - Utilisée pour: liens, bouton principal, `accent-bar`, icônes accentuées.
+  - Utilisée pour: liens, bouton principal, `accent-bar`, icônes/badges accentués.
 - **Palette complémentaire**:
   - Fonds page: `#F5F7FA`.
   - Texte principal: `#0F172A`.
@@ -97,7 +100,8 @@ Référence compatibilité e-mail: voir la liste des balises autorisées et bonn
 
 - Champs à personnaliser selon le contexte:
   - Objet (`<title>`), préheader, date de match, club, rôle utilisateur, type de trajet, lieux.
-  - Liens de modification (`/carpool/preferences`, query `?focus=`).
+  - Liens de modification (`/carpool/preferences`, query `?focus=`) utilisés dans chaque ligne du tableau récap.
+  - Liens des cartes trajets (URLs de confirmation).
   - Valeur « preuve sociale » (compteur de covoitureurs) – idéalement injectée par le backend.
 
 ---
@@ -108,10 +112,10 @@ Référence compatibilité e-mail: voir la liste des balises autorisées et bonn
 - **Préheader** aligné avec l’objet et utile dans l’aperçu.
 - **Titres clairs** et ton rassurant.
 - **Micro‑storytelling** court (≤ 3 phrases) immédiatement au-dessus du tableau.
+- **Table récap cliquable**: chaque ligne renvoie vers la page de modification correcte.
 - **Couleur principale** appliquée sur le bouton et les liens.
 - **Police** Roboto chargée + fallback.
-- **Table récap** lisible: 3 colonnes (icône, libellé, valeur).
-- **Liens** testés (URLs absolues, `target="_blank"`).
+- **Cartes trajets** lisibles (badges, villes) avec CTA « Faire une demande ».
 - **Logos** présents avec attributs `alt` corrects.
 - **Preuve sociale** mise à jour.
 - **Test rendu**: desktop + mobile, Gmail/Outlook/Apple Mail.
@@ -120,7 +124,7 @@ Référence compatibilité e-mail: voir la liste des balises autorisées et bonn
 
 ### Exemple de fichiers
 
-- `carpool_interest_confirmation.html`: modèle de confirmation d’intérêt pour covoiturage (Stade Brestois, 24/11/2025) avec objet optimisé, préheader, micro‑storytelling, tableau récap, CTA, liens rapides et bloc de confiance.
+- `carpool_interest_confirmation.html`: modèle de confirmation d’intérêt pour covoiturage (Stade Brestois, 24/11/2025) avec objet optimisé, préheader, micro‑storytelling, tableau récap cliquable, CTA, cartes de trajets et bloc de confiance.
 
 ---
 
@@ -129,5 +133,5 @@ Référence compatibilité e-mail: voir la liste des balises autorisées et bonn
 - Rester simple, amical et orienté action.
 - Éviter les longs paragraphes; privilégier listes et tableaux.
 - Ne pas multiplier les couleurs; se limiter à l’accent principal.
-- Utiliser un seul CTA principal.
+- Utiliser un seul CTA principal (hors cartes optionnelles).
 - Tester des variantes (objet, première phrase, position de la preuve sociale).

@@ -39,6 +39,15 @@
     .info-table td { padding:12px 12px; border-top:1px solid #F1F5F9; font-size:14px; color:#0F172A; }
     .info-icon { width:24px; text-align:center; color:#F16210; }
     .accent-bar { height:4px; background-color:#F16210; border-radius:8px 8px 0 0; }
+    /* Trip cards */
+    .card { width:100%; border:1px solid #E2E8F0; border-radius:12px; background-color:#FFFFFF; }
+    .card-title { font-weight:bold; color:#0F172A; font-size:16px; }
+    .badge-driver { display:inline-block; background-color:#ECFDF5; color:#065F46; border:1px solid #A7F3D0; border-radius:999px; font-size:12px; line-height:18px; padding:2px 8px; font-weight:bold; }
+    .badge-type { display:inline-block; background-color:#FFF7ED; color:#9A3412; border:1px solid #FED7AA; border-radius:999px; font-size:12px; line-height:18px; padding:2px 8px; font-weight:bold; }
+    .card-cta { background-color:#F16210; color:#FFFFFF; border-radius:999px; text-align:center; }
+    .card-cta a { color:#FFFFFF; display:block; padding:10px 14px; font-weight:bold; }
+    .type { color:#111827; font-weight:bold; }
+    .city { color:#0F172A; }
     /* Trust block */
     .trust { background-color:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; }
     .trust .num { color:#F16210; font-weight:bold; }
@@ -90,7 +99,7 @@
                       Le <strong>24 novembre</strong> approche. Entre l'excitation du match et la route, nous simplifions votre trajet. Avec le covoiturage <strong>Meetway x Stade Brestois</strong>, vous rejoignez d'autres supporters, partagez les frais et arrivez serein au stade. Vérifiez vos informations ci-dessous et ajustez si besoin.
                     </div>
                     <div class="spacer-16"></div>
-                    <div class="muted">Voici un résumé des informations que nous avons enregistrées :</div>
+                    <div class="muted">Cliquez sur un élément du tableau pour le modifier :</div>
                     <div class="spacer-8"></div>
                   </td>
                 </tr>
@@ -109,28 +118,48 @@
                           <table class="info-table" cellpadding="0" cellspacing="0" role="presentation">
                             <tr>
                               <td class="info-icon" align="center">🚗</td>
-                              <td>Votre rôle</td>
-                              <td>Indifférent (passager ou conducteur)</td>
+                              <td>
+                                <a href="https://example.com/carpool/preferences?focus=role" target="_blank" title="Définir votre rôle" style="color:#0F172A; text-decoration:underline; display:block;">Votre rôle</a>
+                              </td>
+                              <td>
+                                <a href="https://example.com/carpool/preferences?focus=role" target="_blank" title="Définir votre rôle" style="color:#0F172A; text-decoration:underline; display:block;">Indifférent (passager ou conducteur)</a>
+                              </td>
                             </tr>
                             <tr>
                               <td class="info-icon" align="center">🔁</td>
-                              <td>Trajet</td>
-                              <td>Aller-retour</td>
+                              <td>
+                                <a href="https://example.com/carpool/preferences?focus=trip" target="_blank" title="Choisir votre trajet" style="color:#0F172A; text-decoration:underline; display:block;">Trajet</a>
+                              </td>
+                              <td>
+                                <a href="https://example.com/carpool/preferences?focus=trip" target="_blank" title="Choisir votre trajet" style="color:#0F172A; text-decoration:underline; display:block;">Aller-retour</a>
+                              </td>
                             </tr>
                             <tr>
                               <td class="info-icon" align="center">🏷️</td>
-                              <td>Club d'appartenance</td>
-                              <td>Stade Brestois 29</td>
+                              <td>
+                                <a href="https://example.com/carpool/preferences?focus=club" target="_blank" title="Renseigner votre club" style="color:#0F172A; text-decoration:underline; display:block;">Club d'appartenance</a>
+                              </td>
+                              <td>
+                                <a href="https://example.com/carpool/preferences?focus=club" target="_blank" title="Renseigner votre club" style="color:#0F172A; text-decoration:underline; display:block;">Stade Brestois 29</a>
+                              </td>
                             </tr>
                             <tr>
                               <td class="info-icon" align="center">📍</td>
-                              <td>Lieu de départ</td>
-                              <td>Adresse de facturation</td>
+                              <td>
+                                <a href="https://example.com/carpool/preferences?focus=from" target="_blank" title="Modifier votre lieu de départ" style="color:#0F172A; text-decoration:underline; display:block;">Lieu de départ</a>
+                              </td>
+                              <td>
+                                <a href="https://example.com/carpool/preferences?focus=from" target="_blank" title="Modifier votre lieu de départ" style="color:#0F172A; text-decoration:underline; display:block;">Adresse de facturation</a>
+                              </td>
                             </tr>
                             <tr>
                               <td class="info-icon" align="center">🏁</td>
-                              <td>Lieu d'arrivée</td>
-                              <td>Adresse de facturation</td>
+                              <td>
+                                <a href="https://example.com/carpool/preferences?focus=to" target="_blank" title="Modifier votre lieu d'arrivée" style="color:#0F172A; text-decoration:underline; display:block;">Lieu d'arrivée</a>
+                              </td>
+                              <td>
+                                <a href="https://example.com/carpool/preferences?focus=to" target="_blank" title="Modifier votre lieu d'arrivée" style="color:#0F172A; text-decoration:underline; display:block;">Adresse de facturation</a>
+                              </td>
                             </tr>
                           </table>
                         </td>
@@ -165,39 +194,103 @@
 
               <div class="spacer-24"></div>
 
-              <!-- Quick links -->
+              <!-- Trip suggestions -->
               <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
                 <tr>
                   <td class="content" style="padding:0 24px;">
-                    <div class="muted">Vous pouvez aussi mettre à jour un élément précis :</div>
+                    <div class="title" style="font-size:18px; line-height:26px;">Suggestions de trajets (conducteurs, vous en tant que passager)</div>
                     <div class="spacer-8"></div>
-                    <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+
+                    <!-- Card 1: Aller-retour -->
+                    <table width="100%" cellpadding="0" cellspacing="0" role="presentation" class="card">
                       <tr>
-                        <td style="padding:6px 0; font-size:14px;">
-                          🚗 <a href="https://example.com/carpool/preferences?focus=role" target="_blank" title="Définir votre rôle">Définir votre rôle</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="padding:6px 0; font-size:14px;">
-                          🔁 <a href="https://example.com/carpool/preferences?focus=trip" target="_blank" title="Choisir votre trajet">Choisir votre trajet</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="padding:6px 0; font-size:14px;">
-                          🏷️ <a href="https://example.com/carpool/preferences?focus=club" target="_blank" title="Renseigner votre club">Renseigner votre club d'appartenance</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="padding:6px 0; font-size:14px;">
-                          📍 <a href="https://example.com/carpool/preferences?focus=from" target="_blank" title="Modifier votre lieu de départ">Modifier votre lieu de départ</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="padding:6px 0; font-size:14px;">
-                          🏟️ <a href="https://example.com/carpool/preferences?focus=to" target="_blank" title="Modifier votre lieu d'arrivée">Modifier votre lieu d'arrivée</a>
+                        <td style="padding:16px;">
+                          <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                            <tr>
+                              <td style="vertical-align:top;">
+                                <span class="badge-driver">Conducteur</span>  <span class="badge-type">Aller-retour</span>
+                                <div class="spacer-8"></div>
+                                <div class="card-title">Juliette souhaite des passagers</div>
+                                <div class="spacer-8"></div>
+                                <div><span class="type">Aller</span> <span class="city">Aix-en-Provence → Lyon</span></div>
+                                <div><span class="type">Retour</span> <span class="city">Lyon → Aix-en-Provence</span></div>
+                              </td>
+                              <td align="right" valign="middle" style="width:1%; white-space:nowrap;">
+                                <table cellpadding="0" cellspacing="0" role="presentation" class="card-cta">
+                                  <tr>
+                                    <td>
+                                      <a href="https://example.com/carpool/confirm?trip=1" target="_blank" title="Confirmer ma demande">Faire une demande</a>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
                         </td>
                       </tr>
                     </table>
+
+                    <div class="spacer-16"></div>
+
+                    <!-- Card 2: Aller-retour -->
+                    <table width="100%" cellpadding="0" cellspacing="0" role="presentation" class="card">
+                      <tr>
+                        <td style="padding:16px;">
+                          <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                            <tr>
+                              <td style="vertical-align:top;">
+                                <span class="badge-driver">Conducteur</span>  <span class="badge-type">Aller-retour</span>
+                                <div class="spacer-8"></div>
+                                <div class="card-title">Francis souhaite des passagers</div>
+                                <div class="spacer-8"></div>
+                                <div><span class="type">Aller</span> <span class="city">Aix-en-Provence → Lyon</span></div>
+                                <div><span class="type">Retour</span> <span class="city">Lyon → Aix-en-Provence</span></div>
+                              </td>
+                              <td align="right" valign="middle" style="width:1%; white-space:nowrap;">
+                                <table cellpadding="0" cellspacing="0" role="presentation" class="card-cta">
+                                  <tr>
+                                    <td>
+                                      <a href="https://example.com/carpool/confirm?trip=2" target="_blank" title="Confirmer ma demande">Faire une demande</a>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <div class="spacer-16"></div>
+
+                    <!-- Card 3: Retour simple -->
+                    <table width="100%" cellpadding="0" cellspacing="0" role="presentation" class="card">
+                      <tr>
+                        <td style="padding:16px;">
+                          <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                            <tr>
+                              <td style="vertical-align:top;">
+                                <span class="badge-driver">Conducteur</span>  <span class="badge-type">Retour</span>
+                                <div class="spacer-8"></div>
+                                <div class="card-title">Karim souhaite des passagers</div>
+                                <div class="spacer-8"></div>
+                                <div><span class="type">Retour</span> <span class="city">Lyon → Aix-en-Provence</span></div>
+                              </td>
+                              <td align="right" valign="middle" style="width:1%; white-space:nowrap;">
+                                <table cellpadding="0" cellspacing="0" role="presentation" class="card-cta">
+                                  <tr>
+                                    <td>
+                                      <a href="https://example.com/carpool/confirm?trip=3" target="_blank" title="Confirmer ma demande">Faire une demande</a>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+
                   </td>
                 </tr>
               </table>
